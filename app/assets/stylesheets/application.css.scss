@@ -1,0 +1,181 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+@import "bootstrap";
+
+body {
+  // background-image: url('carousel1.jpg');
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-brand img {
+  position: absolute;
+  margin-top: -15px;
+  margin-left: -15px;
+}
+
+.carousel-inner {
+  margin-top: -20px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.carousel-inner > .item > img {
+  display: block;
+  min-width: 100%;
+  max-width: 150%;
+  min-height: 100%;
+  line-height: 1;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  text-align: left;
+  top: 20%;
+  left: 20%;
+  right: 20%;
+  bottom: 30%;
+  padding-bottom: 30px;
+}
+
+.carousel-caption h3 {
+  margin-top: -8px;
+}
+
+.carousel-caption form {
+  background-color: grey;
+  border-radius: 5px;
+}
+
+.session-form {
+  margin-top: 5pc;
+  margin-left: 10%;
+  color: white;
+  width: 30%;
+}
+
+.session-form .form-control {
+  width: 20pc;
+}
+
+.profile-form {
+  margin-top: 5pc;
+  margin-left: 10%;
+  color: white;
+  width: 30%;
+}
+
+.profile-form .form-control {
+  width: 20pc;
+}
+
+.campaign-show {
+  // background-color: yellow;
+  width: 100%;
+  border: solid thin red;
+}
+
+.campaign-header {
+  // display: block;
+  background-color: white;
+  border: solid thin black;
+}
+
+.campaign-features {
+  background-color: orange;
+  // float: left;
+  height: 30pc;
+  border: solid thin blue;
+}
+
+.campaign-features img {
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.campaign-body {
+  background-color: pink;
+  // float: left;
+  margin: 0;
+  height: 40pc;
+  border: solid thin green;
+}
+
+.campaign-host {
+  background-color: purple;
+  width: 15pc;
+  height: 30pc;
+  border: solid thin green;
+}
+
+$bgDefault      : #222621;
+$bgHighlight    : #394037;
+$colDefault     : white;
+$colHighlight   : #fefdfd;
+.navbar-default {
+	background-color: $bgDefault;
+	border-color: $bgHighlight;
+	.navbar-brand {
+		color: $colDefault;
+		&:hover, &:focus {
+			color: $colHighlight; }}
+	.navbar-text {
+		color: $colDefault; }
+	.navbar-nav {
+		> li {
+			> a {
+				color: $colDefault;
+				&:hover,  &:focus {
+					color: $colHighlight; }}}
+		> .active {
+			> a, > a:hover, > a:focus {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}
+		> .open {
+			> a, > a:hover, > a:focus {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}}
+	.navbar-toggle {
+		border-color: $bgHighlight;
+		&:hover, &:focus {
+			background-color: $bgHighlight; }
+		.icon-bar {
+			background-color: $colDefault; }}
+	.navbar-collapse,
+	.navbar-form {
+		border-color: $colDefault; }
+	.navbar-link {
+		color: $colDefault;
+		&:hover {
+			color: $colHighlight; }}}
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu {
+		> li > a {
+			color: $colDefault;
+			&:hover, &:focus {
+				color: $colHighlight; }}
+		> .active {
+			> a, > a:hover, > a:focus, {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}}
+}

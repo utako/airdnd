@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: AirDnd_development
+  host: localhost
+
+test:
+  <<: *default
+  database: AirDnd_test
+
+production:
+  <<: *default
+  database: AirDnd_production
+  username: AirDnd
+  password: <%= ENV['AIRDND_DATABASE_PASSWORD'] %>

@@ -1,0 +1,59 @@
+<div class="search-form">
+  <form action="<%=  %>" method="post" role="form">
+    <%= form_auth_token %>
+    <div class="form-group">
+      <div class="location-wrapper">
+        <input type="text" name="request[location]" class="form-control" value="Where do you want to play?">
+      </div>
+      <div class="style-wrapper">
+        <% game_styles = ["Dungeons&Dragons 5E",
+          "Dungeons&Dragons 4E", "Dungeons&Dragons 3.5E", "Dungeons&Dragons 3E",
+          "Shadowrun", "Exalted", "Other"] %>
+        <select name="request[game_style]" class="form-control">
+          <% game_styles.each do |game_style| %>
+          <% end %>
+        </select>
+      </div>
+      <div class="system-wrapper">
+        <select name="request[game_system]" class="form-control">
+          <% game_systems = ["Hack and Slash", "Pure Roleplay",
+            "Other"] %>
+          <% game_systems.each do |game_system|  %>
+            <option value="<%= game_system %>"><%= game_system %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="setting-wrapper">
+        <% campaign_settings = ["Áereth", "Al-Qadim",
+          "Birthright", "Blackmoor", "Council of Wyrms", "Dark Sun", "Domains of Divinity",
+          "Dragonlance", "Dreadmire", "Eberron", "Forgotten Realms", "Greyhawk",
+          "Jakandor", "Kerell", "Kingdoms of Kalamar", "Lankhmar", "Masque of the Red Death",
+          "Mystara", "Pelinore", "Planescape", "Ptolus", "Ravenloft", "Rokugan",
+          "Spelljammer", "Teatrail Falls", "Wilderlands of High Fantasy", "Other"] %>
+        <select name="request[setting]" class="form-control">
+          <% campaign_settings.each do |campaign_setting| %>
+              <option value="<%= campaign_setting %>"><%= campaign_setting %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="startdate-wrapper">Campaign Start
+        <input value="test" type="date" name="request[start_date]" id="request_start_date">
+      </div>
+      <div class="enddate-wrapper">Campaign End
+        <input type="date" name="request[end_date]" id="request_end_date">
+      </div>
+      <div class="numplayers-wrapper">
+        <select name="request[num_players]" class="form-control">
+          <% nums = ["1 Player", "2 Players", "3 Players", "4 Players",
+            "5 Players", "6 Players", "7 Players", "8 Players", "9 Players",
+            "10 Players", "11 Players", "12 Players", "13 Players", "14 Players",
+            "15 Players", "16+ Players"] %>
+          <% nums.each do |num|  %>
+            <option value="<%= num %>"><%= num %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="Search" class="btn btn-success">
+  </form>
+</div>

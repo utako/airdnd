@@ -1,0 +1,42 @@
+<div class="panel host-onboarding">
+  <div class="panel-title host-header">
+    <h1>Be a Dungeon Master</h1>
+    <p>AirDnD lets you make friends by hosting campaigns</p>
+  </div>
+  <div class="panel-body host-form form-group">
+    <form>
+      <label>Name Your Campaign
+        <input type="text" name="campaign[title]" class="form-control">
+      </label><br>
+      <label>Location
+        <input type="text" name="campaign[location]" class="form-control">
+      </label><br>
+      <label>Game Style
+        <select name="campaign[game_style]" class="form-control">
+          <% _.each(gameStyles, function(gameStyle) { %>
+            <option value="<%= gameStyle %>"><%= gameStyle %></option>
+          <% })%>
+        </select>
+      </label><br>
+      <label>Game System
+        <select name="campaign[game_system]" class="form-control">
+          <% _.each(gameSystems, function(gameSystem) { %>
+            <option value="<%= gameSystem %>"><%= gameSystem %></option>
+          <% })%>
+        </select>
+      </label><br>
+      <label>Campaign Setting
+        <select name="campaign[setting]" class="form-control">
+          <% _.each(settings, function(setting) { %>
+            <option value="<%= setting %>"><%= setting %></option>
+          <% })%>
+        </select>
+      </label><br>
+      <label>Number of Players
+          <input type="number" name="campaign[num_members]" class="form-control" min="1">
+        </label><br>
+      </label><br>
+      <input type="submit" value="Continue" class="btn btn-default">
+    </form>
+  </div>
+</div>

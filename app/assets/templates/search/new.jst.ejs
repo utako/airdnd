@@ -1,0 +1,43 @@
+<div class="search-form">
+    <div class="form-group">
+      <div class="location-wrapper">
+        <input type="text" name="request[location]" class="form-control" value="Where do you want to play?">
+      </div>
+      <div class="style-wrapper">
+        <select name="request[game_style]" class="form-control">
+          <% _.each(gameStyles, function(gameStyle) { %>
+            <option value="<%= gameStyle %>"><%= gameStyle %></option>
+          <% })%>
+        </select>
+      </div>
+      <div class="system-wrapper">
+        <select name="request[game_system]" class="form-control">
+          <% _.each(gameSystems, function(gameSystem) { %>
+            <option value="<%= gameSystem %>"><%= gameSystem %></option>
+          <% })%>
+        </select>
+      </div>
+      <div class="setting-wrapper">
+        <select name="request[setting]" class="form-control">
+          <% _.each(settings, function(setting) { %>
+            <option value="<%= setting %>"><%= setting %></option>
+          <% })%>
+        </select>
+      </div>
+      <div class="startdate-wrapper">Campaign Start
+        <input value="test" type="date" name="request[start_date]" id="request_start_date">
+      </div>
+      <div class="enddate-wrapper">Campaign End
+        <input type="date" name="request[end_date]" id="request_end_date">
+      </div>
+      <div class="numplayers-wrapper">
+        <select name="request[num_players]" class="form-control">
+          <% _.each(numPlayers, function(numPlayer) { %>
+            <option value="<%= numPlayer %>"><%= numPlayer %></option>
+          <% })%>
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="Search" class="btn btn-success">
+  </form>
+</div>

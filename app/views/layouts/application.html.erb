@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AirDnD</title>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class='navbar-brand logo' href='/'><%= image_tag "logo.png", height: "55px" %></a>
+      </div>
+      <ul class="nav navbar-right">
+        <li>
+          <% if logged_in? %>
+            <%= button_to "Log out", session_url,
+              { method: :delete, class: "btn btn-xs btn-default" } %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>

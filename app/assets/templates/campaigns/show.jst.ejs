@@ -1,0 +1,28 @@
+<div class="panel campaign-show">
+  <div class="row campaign-header">
+    <h1><%= campaign.escape('title') %></h1>
+  </div>
+  <div class="row campaign-body">
+    <div class="col-xs-8">
+      <div class="row">
+        <div class="campaign-features">
+          <img src="/assets/dndhost1.png">
+        </div>
+      </div>
+      <div class="row">
+        <div class="campaign-info">
+          <div id="location"><%= campaign.escape('location') %></div>
+          <div id="description"><%= campaign.escape('description') %></div>
+          <div id="rules"><%= campaign.escape('rules') %></div>
+          <div id="num_members"><%= campaign.escape('num_members') %></div>
+          <div id="game_style"><%= campaign.escape('game_style') %></div>
+          <div id="game_system"><%= campaign.escape('game_system') %></div>
+          <div id="setting"><%= campaign.escape('setting') %></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4 campaign-host">
+      Host
+    </div>
+  </div>
+</div>

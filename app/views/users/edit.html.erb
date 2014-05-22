@@ -1,0 +1,42 @@
+<%= render "layouts/errors" %>
+<div class="profile-form">
+  <h1>Edit Your Profile</h1>
+  <form action="<%= user_url(@user) %>" method="post" role="form">
+    <%= form_auth_token %>
+    <input type="hidden" value="PATCH" name="_method" >
+    <div class="form-group">
+      <label>First Name
+        <input type="text" name="user[fname]" class="form-control" value="<%= @user.fname %>">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Last Name
+        <input type="text" name="user[lname]" class="form-control" value="<%= @user.lname %>">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Email
+        <input type="text" name="user[email]" class="form-control" value="<%= @user.email %>">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>About Me
+        <textarea name="user[about]" class="form-control"><%= @user.about %></textarea>
+      </label>
+    </div>
+    <label>Gender
+      <select class="form-group" name="user[gender]">
+        <option class="form-control" value="female">Female</option>
+        <option class="form-control" value="male">Male</option>
+        <option class="form-control" value="other">Other</option>
+      </select>
+    </label>
+    <div class="form-group">
+      <label>Phone Number
+        <input type="text" name="user[phone_number]" class="form-control" value="<%= @user.phone_number %>">
+      </label>
+    </div>
+
+    <input type="submit" value="Update" class="btn btn-default">
+  </form>
+</section>

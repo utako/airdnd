@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer          not null
+#  location    :string(255)      not null
+#  type        :string(255)      not null
+#  public      :boolean
+#  description :string(255)
+#  rules       :text
+#  num_members :integer          not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  location: MyString
+  type: 
+  public: false
+  description: MyString
+  rules: MyText
+  num_members: 1
+
+two:
+  user_id: 1
+  location: MyString
+  type: 
+  public: false
+  description: MyString
+  rules: MyText
+  num_members: 1

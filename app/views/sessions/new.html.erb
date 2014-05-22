@@ -1,0 +1,18 @@
+<%= render "layouts/errors" %>
+<div class="session-form">
+  <h1>Sign In</h1>
+  <form action="<%= session_url %>" method="post" role="form">
+    <%= form_auth_token %>
+    <div class="form-group">
+      <label>Email
+        <input type="text" name="user[email]" class="form-control">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Password
+        <input type="password" name="user[password]" class="form-control">
+      </label>
+    </div>
+    <input type="submit" value="Sign In" class="btn btn-default">
+  </form>
+</div>
