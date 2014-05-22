@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require datepicker
  *= require_tree .
  *= require_self
  */
@@ -21,6 +22,10 @@ body {
   // background-image: url('carousel1.jpg');
   overflow: hidden;
   height: 100%;
+  width: 100%;
+}
+
+.search-container {
   width: 100%;
 }
 
@@ -51,6 +56,7 @@ body {
 
 .carousel-caption {
   text-align: left;
+  width: 60%;
   top: 20%;
   left: 20%;
   right: 20%;

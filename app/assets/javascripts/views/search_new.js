@@ -1,6 +1,8 @@
 window.AirDnd.Views.searchNew = Backbone.View.extend({
   template: JST["search/new"],
 
+  className: "search-container",
+
   events: {
     "submit form": "submit"
   },

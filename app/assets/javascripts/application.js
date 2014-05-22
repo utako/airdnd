@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require underscore
 //= require backbone
+//= require bootstrap
+//= require bootstrap-datepicker
 //= require serializeJSON
 //= require air_dnd
 //= require_tree ../templates
