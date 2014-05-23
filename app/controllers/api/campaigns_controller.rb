@@ -9,7 +9,7 @@ module Api
       @campaign = Campaign.find(params[:id])
       render partial: "api/campaigns/campaign", locals: { campaign: @campaign }
     end
-    
+
     def create
       @campaign = current_user.hosted_campaigns.build(campaign_params)
       if @campaign.save
@@ -21,13 +21,13 @@ module Api
 
     # def update
     #   @campaign = current_user.campaigns.find(params[:id])
-    # 
+    #
     #   if params[:newMemberEmail]
     #     email = params[:newMemberEmail]
     #     new_member = User.find_by_email(email)
     #     new_member && !@board.members.include?(new_member) && @board.members << new_member
     #   end
-    # 
+    #
     #   if @board.update_attributes(board_params)
     #     render partial: "api/boards/board", locals: { board: @board }
     #   else
@@ -43,7 +43,7 @@ module Api
     private
 
     def campaign_params
-      params.require(:campaign).permit(:title, :location, :game_style, :game_system, :setting, :public, :description, :rules, :num_members)
+      params.require(:campaign).permit(:title, :location, :game_style, :game_system, :setting, :public, :description, :rules, :num_members, :start_date, :end_date)
     end
   end
 end

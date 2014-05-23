@@ -18,8 +18,8 @@
 
 @import "bootstrap";
 
-body {
-  // background-image: url('carousel1.jpg');
+body.sign_up {
+  background-image: url('carousel1.jpg');
   overflow: hidden;
   height: 100%;
   width: 100%;
@@ -29,18 +29,33 @@ body {
   width: 100%;
 }
 
+.search-form input {
+  width: 30%;
+  float: left;
+}
+
+.date-wrapper {
+  color: grey;
+}
+
 .navbar {
   border-radius: 0px;
+  z-index: 500;
 }
 
 .navbar-brand img {
+  height: 65px;
   position: absolute;
-  margin-top: -15px;
-  margin-left: -15px;
+  top: 0px;
+  z-index: 1000;
+}
+
+.navbar-nav {
+  margin-left: 120px;
 }
 
 .carousel-inner {
-  margin-top: -20px;
+  margin-top: -35px;
   height: 600px;
   overflow: hidden;
 }
@@ -132,6 +147,14 @@ body {
   width: 15pc;
   height: 30pc;
   border: solid thin green;
+}
+
+.host-onboarding {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: black thin solid;
+  background-color: white;
 }
 
 $bgDefault      : #222621;

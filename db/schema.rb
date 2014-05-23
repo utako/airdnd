@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521232622) do
+ActiveRecord::Schema.define(version: 20140523002943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20140521232622) do
     t.string   "game_style",  null: false
     t.string   "game_system", null: false
     t.string   "setting"
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
   add_index "campaigns", ["location"], name: "index_campaigns_on_location", using: :btree
