@@ -1,6 +1,8 @@
 window.AirDnd.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "searchNew",
+    "search": "searchShow",
+    "games": "gamesShow",
     "campaigns/new": "campaignsNew",
     "campaigns/:id": "campaignsShow",
   },
@@ -8,6 +10,28 @@ window.AirDnd.Routers.AppRouter = Backbone.Router.extend({
   searchNew: function() {
     var newView = new AirDnd.Views.searchNew();
     this._swapView(newView);
+    AirDnd.Collections.campaigns.fetch();
+  },
+
+  searchShow: function() {
+    var searchParams = AirDnd.Routers.AppRouter.searchParams;
+    delete AirDnd.Routers.AppRouter.searchParams;
+    var showView = new AirDnd.Views.searchShow({
+      collection: AirDnd.Collections.campaigns,
+      searchParams: searchParams || {}
+    });
+    this._swapView(showView);
+    AirDnd.Collections.campaigns.fetch();
+  },
+
+  gamesShow: function() {
+    console.log("games show");
+    var gamesView = new AirDnd.Views.gamesShow({
+      collection: AirDnd.Collections.campaigns,
+      searchParams: { user_id: currentUserId }
+    });
+    this._swapView(gamesView);
+    AirDnd.Collections.campaigns.fetch();
   },
 
   campaignsIndex: function() {

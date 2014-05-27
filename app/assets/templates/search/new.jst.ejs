@@ -3,13 +3,13 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img alt="Carousel7" class="carousel-image" height="100px" src="/assets/carousel7.jpg">
+      <img alt="Carousel7" class="carousel-image" height="100px" src="/assets/carousel8.jpg">
     </div>
     <div class="item">
       <img alt="Carousel6" class="carousel-image" height="100px" src="/assets/carousel6.png">
     </div>
     <div class="item">
-      <img alt="Carousel8" class="carousel-image" height="100px" src="/assets/carousel8.jpg">
+      <img alt="Carousel8" class="carousel-image" height="100px" src="/assets/carousel7.jpg">
     </div>
     <div class="item">
       <img alt="Carousel3" class="carousel-image" height="100px" src="/assets/carousel3.png">
@@ -17,53 +17,36 @@
 
   </div>
   <div class="carousel-caption">
-    <h1>Find a Campaign to Join</h1>
-    <h3>Play with people in over 34,000 cities and 192 countries.</h3>
-    <div class="form">
-      <div class="search-form">
-        <form>
-          <div class="form-group">
-            <div class="location-wrapper">
-              <input type="text" name="request[location]" class="form-control" value="Where do you want to play?">
-            </div>
-            <div class="style-wrapper">
-              <select name="request[game_style]" class="form-control">
-                <% _.each(gameStyles, function(gameStyle) { %>
-                  <option value="<%= gameStyle %>"><%= gameStyle %></option>
-                <% })%>
-              </select>
-            </div>
-            <div class="system-wrapper">
-              <select name="request[game_system]" class="form-control">
-                <% _.each(gameSystems, function(gameSystem) { %>
-                  <option value="<%= gameSystem %>"><%= gameSystem %></option>
-                <% })%>
-              </select>
-            </div>
-            <div class="setting-wrapper">
-              <select name="request[setting]" class="form-control">
-                <% _.each(settings, function(setting) { %>
-                  <option value="<%= setting %>"><%= setting %></option>
-                <% })%>
-              </select>
-            </div>
-            <div class="date-wrapper">
-              <input class="span2 datepicker form-control" id="start_date" size="16" type="text" data-date-format="dd-mm-yyyy" name="request[start_date]" value="Choose a start date"><span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-              <input class="span2 datepicker form-control" id="end_date" size="16" type="text" data-date-format="dd-mm-yyyy" name="request[end_date]" value="Choose an end date"><span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
-            </div>
-            <div class="numplayers-wrapper">
-              <select name="request[num_players]" class="form-control">
-                <% _.each(numPlayers, function(numPlayer) { %>
-                  <option value="<%= numPlayer %>"><%= numPlayer %></option>
-                <% })%>
-              </select>
-            </div>
-          </div>
-          <input type="submit" value="Search" class="btn btn-success">
-        </form>
-      </div>
+    <h1 style="margin-bottom: 1pc">Find a Campaign to Join.</h1>
+    <h3 style="margin-bottom: 2pc">Play with people in over 34,000 cities and 192 countries.</h3>
+    <div class="search-form">
+      <form class="form-group">
+        <input type="text" style="width:15pc" name="request[location]" class="form-control controls" id="pac-input" placeholder="Where do you want to play?">
+        <select name="request[game_style]" class="form-control" style="width:7.5pc">
+          <option value="" disabled selected>Style</option>
+            <% _.each(gameStyles, function(gameStyle) { %>
+              <option value="<%= gameStyle %>"><%= gameStyle %></option>
+            <% })%>
+        </select>
+        <select name="request[game_system]" class="form-control" placeholder="Game System" style="width:8pc">
+          <option value="" disabled selected>System</option>
+          <% _.each(gameSystems, function(gameSystem) { %>
+            <option value="<%= gameSystem %>"><%= gameSystem %></option>
+          <% })%>
+        </select>
+        <select name="request[setting]" class="form-control" style="width:9.5pc">
+          <option value="" disabled selected>Campaign Setting</option>
+          <% _.each(settings, function(setting) { %>
+            <option value="<%= setting %>"><%= setting %></option>
+          <% })%>
+        </select>
+        <select name="request[num_members]" class="form-control" style="width:7pc">
+          <% _.each(numPlayers, function(numPlayer) { %>
+            <option value="<%= numPlayer.split(" ")[0] %>"><%= numPlayer %></option>
+          <% })%>
+        </select>
+        <input type="submit" value="Search" class="btn btn-success">
+      </form>
     </div>
   </div>
-
-
 </div>

@@ -1,28 +1,130 @@
-<div class="panel campaign-show">
-  <div class="row campaign-header">
-    <h1><%= campaign.escape('title') %></h1>
+<div class="row campaign-header">
+  <div id='campaign-title' class='editable-attr'>
+    <h1 class="show"><%= campaign.escape('title') %></h1>
+    <h1 class="hide"><%= campaign.escape('title') %><button class="glyph-button btn btn-md btn-default edit-campaign-md" id='edit-title'><span class="glyphicon glyphicon-pencil" id='edit-title-glyph'></span></button></h1>
   </div>
-  <div class="row campaign-body">
-    <div class="col-xs-8">
-      <div class="row">
-        <div class="campaign-features">
-          <img src="/assets/dndhost1.png">
-        </div>
+  <div id='campaign-preferences' class='editable-attr'>
+    <h5 class='show'><%= campaign.escape('game_system') %> | <%= campaign.escape('game_style') %> | <%= campaign.escape('setting') %> | <%= campaign.escape('location') %> </h5>
+    <h5 class='hide'><%= campaign.escape('game_system') %> | <%= campaign.escape('game_style') %> | <%= campaign.escape('setting') %> | <%= campaign.escape('location') %><button data-toggle="modal" data-target="#editCampaignPrefModal" class="glyph-button btn btn-xs btn-default edit-campaign-md" id='edit-preferences'><span class="glyphicon glyphicon-pencil" id='edit-title-glyph'></span></button></h5>
+  </div>
+</div>
+<div class="row campaign-body">
+    <ul class="pagination">
+      <li><a href="#">Photos<span class="sr-only">(current)</span></a></li>
+      <li><a href="#">Maps</a></li>
+      <li><a href="#">Calendar</a></li>
+    </ul>
+    <div class="row campaign-photos">
+      <div class="row main-photo">
+        <% if (photo_urls.length > 0 ) { %>
+          <img id='main-photo' src="<%= photo_urls[0] %>">
+          <div class="row campaign-thumbnails">
+            <% photo_urls.forEach(function(photo_url){ %>
+              <a class="thumbnail">
+                <img id="thumbnail" src="<%= photo_url %>">
+              </a>
+            <% }) %>
+            <button class='thumbnail glyph-button btn btn-default btn-xs filepicker-btn' type="filepicker" data-fp-apikey="<%= filepickerAPIKey %>" data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-option-multiple="true" data-fp-maxsize="5000" onchange="out='';for(var i=0;i<event.fpfiles.length;i++){out+=event.fpfiles[i].url;out+=' '};alert(out)"><span class="glyphicon glyphicon-plus"></span></button>
+            <!-- <button class="thumbnail glyph-button btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span></button> -->
+          </div>
+        <% } else { %>
+          <button id="add-photo-btn" class='btn btn-default btn-lg filepicker-btn' type="filepicker" data-fp-apikey="<%= filepickerAPIKey %>" data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-multiple="true" data-fp-maxsize="5000" onchange="out='';for(var i=0;i<event.fpfiles.length;i++){out+=event.fpfiles[i].url;out+=' '};alert(out)"><span class="glyphicon glyphicon-plus"></span></button>
+          <!-- <button class="glyph-button btn-lg btn-default" id='add-photo-btn'><span class="glyphicon glyphicon-plus"></span></button> -->
+          <img data-src="holder.js/800x500/text:Add a Photo">
+        <% } %>
       </div>
-      <div class="row">
-        <div class="campaign-info">
-          <div id="location"><%= campaign.escape('location') %></div>
-          <div id="description"><%= campaign.escape('description') %></div>
-          <div id="rules"><%= campaign.escape('rules') %></div>
-          <div id="num_members"><%= campaign.escape('num_members') %></div>
-          <div id="game_style"><%= campaign.escape('game_style') %></div>
-          <div id="game_system"><%= campaign.escape('game_system') %></div>
-          <div id="setting"><%= campaign.escape('setting') %></div>
+    </div>
+    <div class="row campaign-info">
+      <div class="info-container">
+        <h2>Description</h2>
+        <div id='campaign-description' class='editable-attr'>
+          <% if (!campaign.get('description')) { %>
+            <p style='color: grey'>Add your description here.<button class="glyph-button btn btn-xs btn-default edit-campaign-md" id='edit-description'><span class="glyphicon glyphicon-pencil"></span></button></p>
+          <% } else { %>
+            <p class='show'><%= campaign.escape('description') %></p>
+            <p class='hide'><%= campaign.escape('description') %><button class="glyph-button btn btn-xs btn-default edit-campaign-md" id='edit-description'><span class="glyphicon glyphicon-pencil"></span></button></p>
+          <% }%>
+        </div>
+        <h2>Rules</h2>
+        <div id='campaign-rules' class='editable-attr'>
+          <% if (!campaign.get('rules')) { %>
+            <p style='color: grey'>Add your rules here.<button class="glyph-button btn btn-xs btn-default edit-campaign-md" id='edit-rules'><span class="glyphicon glyphicon-pencil"></span></button></p>
+          <% } else { %>
+            <p class='show'><%= campaign.escape('rules') %></p>
+            <p class='hide'><%= campaign.escape('rules') %><button class="glyph-button btn btn-xs btn-default edit-campaign-md" id='edit-rules'><span class="glyphicon glyphicon-pencil"></span></button></p>
+          <% }%>
         </div>
       </div>
     </div>
-    <div class="col-xs-4 campaign-host">
-      Host
+</div>
+<div class="campaign-side">
+  <div class=campaign-join>
+    <h1>Players: <%= campaign.escape('num_members') %><button class="glyph-button btn btn-md btn-default edit-campaign-md" id='edit-num-members'><span class="glyphicon glyphicon-pencil"></span></button></h1>
+    <h3><%= startDate %> ~ <%= endDate %></h3>
+    <button class="btn btn-lg btn-success">Join Campaign</button>
+  </div>
+  <div class="campaign-host">
+    <img src="<%= campaign.host().escape('filepicker_url') %>">
+    <h3><%= campaign.host().escape('fname') %></h3>
+    <h4><%= campaign.host().escape('email') %></h4>
+    <h5>About the Dungeon Master</h5>
+    <p><%= campaign.host().escape('about') %></p>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editCampaignPrefModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Your Campaign Preferences</h4>
+      </div>
+      <form id='edit-pref-form'>
+      <div class="modal-body">
+          <label>Location
+            <input type="text" name="campaign[location]" class="controls form-control" id="pac-input" value="<%= campaign.escape('location') %>" style="width: 17pc">
+          </label><br>
+          <label>Game Style
+            <select name="campaign[game_style]" class="form-control">
+              <% _.each(gameStyles, function(gameStyle) { %>
+                <% if (campaign.get('game_style') === gameStyle) { %>
+                  <option selected='selected' value="<%= gameStyle %>"><%= gameStyle %></option>
+                <% } else { %>
+                  <option value="<%= gameStyle %>"><%= gameStyle %></option>
+                <% }%>
+              <% })%>
+            </select>
+          </label><br>
+          <label>Game System
+            <select name="campaign[game_system]" class="form-control">
+              <% _.each(gameSystems, function(gameSystem) { %>
+                <% if (campaign.get('game_system') === gameSystem) { %>
+                  <option selected='selected' value="<%= gameSystem %>"><%= gameSystem %></option>
+                <% } else { %>
+                  <option value="<%= gameSystem %>"><%= gameSystem %></option>
+                <% }%>
+              <% })%>
+            </select>
+          </label><br>
+          <label>Campaign Setting
+            <select name="campaign[setting]" class="form-control">
+              <% _.each(settings, function(setting) { %>
+                <% if (campaign.get('setting') === setting) { %>
+                  <option selected='selected' value="<%= setting %>"><%= setting %></option>
+                <% } else { %>
+                  <option value="<%= setting %>"><%= setting %></option>
+                <% }%>
+              <% })%>
+            </select>
+          </label><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-success" id='edit-pref-btn' value="Update">
+      </div>
     </div>
+    </form>
   </div>
 </div>

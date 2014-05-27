@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523002943) do
+ActiveRecord::Schema.define(version: 20140525214940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "campaign_photos", force: true do |t|
+    t.integer "campaign_id", null: false
+    t.string  "photo_url",   null: false
+  end
+
+  add_index "campaign_photos", ["campaign_id"], name: "index_campaign_photos_on_campaign_id", using: :btree
+  add_index "campaign_photos", ["photo_url"], name: "index_campaign_photos_on_photo_url", using: :btree
 
   create_table "campaigns", force: true do |t|
     t.integer  "user_id",     null: false
@@ -37,6 +45,14 @@ ActiveRecord::Schema.define(version: 20140523002943) do
   add_index "campaigns", ["num_members"], name: "index_campaigns_on_num_members", using: :btree
   add_index "campaigns", ["user_id"], name: "index_campaigns_on_user_id", using: :btree
 
+  create_table "user_photos", force: true do |t|
+    t.integer "user_id",   null: false
+    t.string  "photo_url", null: false
+  end
+
+  add_index "user_photos", ["photo_url"], name: "index_user_photos_on_photo_url", using: :btree
+  add_index "user_photos", ["user_id"], name: "index_user_photos_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "session_token",                   null: false
     t.string   "password_digest",                 null: false
@@ -50,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140523002943) do
     t.datetime "updated_at"
     t.string   "fname"
     t.string   "lname"
+    t.string   "filepicker_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

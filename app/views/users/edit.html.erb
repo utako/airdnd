@@ -1,3 +1,4 @@
+<% content_for :body_class, "sign_up" %>
 <%= render "layouts/errors" %>
 <div class="profile-form">
   <h1>Edit Your Profile</h1>
@@ -36,7 +37,13 @@
         <input type="text" name="user[phone_number]" class="form-control" value="<%= @user.phone_number %>">
       </label>
     </div>
-
-    <input type="submit" value="Update" class="btn btn-default">
+    <br>
+    <%= form_for @user do |f| %>
+      <div class='form-group'>
+        <%= f.label :filepicker_url, "Upload Your Avatar:" %>
+        <%= f.filepicker_field :filepicker_url, button_class: "btn btn-default btn-md" %>
+      </div>
+    <input type="submit" value="Update" class="btn btn-success btn-lg">
+    <% end %>
   </form>
 </section>

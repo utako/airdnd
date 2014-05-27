@@ -1,0 +1,21 @@
+<a href="#/campaigns/<%= campaign.id %>">
+  <div id='preview-photo'>
+    <% if (photo_url !== "" ) { %>
+      <img src="<%= photo_url %>">
+    <% } else { %>
+      <img src="assets/preview/imageplaceholder.jpg">
+    <% } %>
+  </div>
+  <div id='photo-caption'><h4><%= campaign.escape('title') %></h4></div>
+  <div id='preview-description'>
+    <div id='preview-info'>
+      <%= campaign.escape('game_style') %> |
+      <%= campaign.escape('game_system') %><br>
+      <%= campaign.escape('setting') %> <br>
+      <%= campaign.escape('location') %>
+    </div>
+    <div id='preview-players'>
+    <%= campaign.escape('num_members') %>
+    </div>
+  </div>
+</a>

@@ -1,7 +1,7 @@
 window.AirDnd.Collections.Campaigns = Backbone.Collection.extend({
   url: 'api/campaigns',
-  model: AirDnd.Models.Campaign, 
-  
+  model: AirDnd.Models.Campaign,
+
   getOrFetch: function(id) {
     var model;
     var campaigns = this;
@@ -16,8 +16,8 @@ window.AirDnd.Collections.Campaigns = Backbone.Collection.extend({
       return model;
     }
   },
+
+
 });
 
 window.AirDnd.Collections.campaigns = new AirDnd.Collections.Campaigns();
-
-

@@ -6,7 +6,9 @@ window.AirDnd = {
   initialize: function() {
     new window.AirDnd.Routers.AppRouter();
     Backbone.history.start();
-  }
+  },
+
+
 };
 
 Backbone.CompositeView = Backbone.View.extend({
@@ -18,7 +20,7 @@ Backbone.CompositeView = Backbone.View.extend({
     var $selectorEl = this.$(selector);
     $selectorEl.append(subview.$el);
   },
-  
+
   removeSubview: function(selector, subview) {
     var selectorSubviews =
       this.subviews()[selector] || (this.subviews()[selector] = []);
@@ -26,10 +28,14 @@ Backbone.CompositeView = Backbone.View.extend({
     selectorSubviews.splice(subviewIndex, 1);
     subview.remove();
   },
-  
-  renderSubview: function() {
+
+  removeAllSubviews: function(selector) {
+    this._subviews = {};
+  },
+
+  renderSubviews: function() {
     var view = this;
-    
+
     _(this.subviews()).each(function (selectorSubviews, selector) {
       var $selectorEl = view.$(selector);
       $selectorEl.empty();
@@ -40,18 +46,13 @@ Backbone.CompositeView = Backbone.View.extend({
       });
     });
   },
-  
+
   subviews: function() {
     if (!this._subviews) {
       this._subviews = {};
     }
     return this._subviews;
   },
-  
+
+
 });
-
-$(document).ready(function(){
-  AirDnd.initialize();
-});
-
-

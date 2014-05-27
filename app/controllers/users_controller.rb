@@ -1,8 +1,8 @@
-class UsersController < ApplicationController 
+class UsersController < ApplicationController
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  
+
   def show
     @user = User.find(params[:id])
   end
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update_attributes!(user_params)
@@ -32,10 +32,10 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   private
-  
+
   def user_params
-    params.require(:user).permit(:fname, :lname, :email, :password, :age, :gender, :about, :phone_number)
+    params.require(:user).permit(:fname, :lname, :email, :password, :age, :gender, :about, :phone_number, :filepicker_url)
   end
 end

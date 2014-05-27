@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>AirDnD</title>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_maps_api_key']%>&libraries=places&sensor=false">
+  </script>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%= filepicker_js_include_tag %>
 </head>
 <body class="<%= yield :body_class %>">
 
@@ -25,23 +28,26 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Your Campaigns</a></li>
-        <li><a href="#/campaigns/new">Host a Campaign</a></li>
+        <li class="active"><a href="/#/games">YOUR CAMPAIGNS</a></li>
+        <li><a href="/#/search">BROWSE</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Blah</a></li>
-        <li><a href="#">Blah2</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Sign Out</a></li>
-          </ul>
-        </li>
+        <% if current_user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <span class="glyphicon glyphicon-user" style="margin-left: 1pc"></span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <% edit_url = "users/" + current_user.id.to_s + "/edit" %>
+              <li><a href="<%= edit_url %>">Edit Profile</a></li>
+              <li class="divider"></li>
+              <li><%= link_to "Log out", session_url, { method: :delete } %></li>
+            </ul>
+          </li>
+          <li><a href="/#/campaigns/new"><button class='btn-xs btn-success' type="button" style="margin-top: -20px">HOST A CAMPAIGN</button></a></li>
+        <% else %>
+          <li><a href="/session/new">Sign In</a></li>
+          <li><a href="/users/new">Sign Up</a></li>
+        <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

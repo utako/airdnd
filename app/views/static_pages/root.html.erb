@@ -1,6 +1,12 @@
 <div id="content"></div>
+
+
 <script>
-  $(function () {
-    // put stuff here
+  <% if current_user %>
+    var currentUserId = <%= current_user.id %>
+  <% end %>
+  var filepickerAPIKey = "<%= ENV['filepicker_api_key']%>";
+  $(document).ready(function(){
+    AirDnd.initialize();
   });
 </script>

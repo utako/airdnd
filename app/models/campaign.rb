@@ -15,7 +15,8 @@
 #
 
 class Campaign < ActiveRecord::Base
-  validates :title, :host, :location, :setting, :game_style, :game_system, 
+  validates :title, :host, :location, :setting, :game_style, :game_system,
     :num_members, presence: true
   belongs_to :host, class_name: "User", foreign_key: :user_id
+  has_many :photos, class_name: "CampaignPhoto"
 end

@@ -8,15 +8,19 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
   },
 
   initialize: function() {
+    $('#content').keydown(function (e) {
+      if (e.which == 13 && $('#pac-input:visible').length) return false;
+    });
 
   },
 
   render: function() {
+
     var nowTemp = new Date();
     var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-    var gameStyles = AirDnd.Models.Campaign.gameStylesOptions;
-    var gameSystems = AirDnd.Models.Campaign.gameSystemsOptions;
-    var settings = AirDnd.Models.Campaign.settingsOptions;
+    var gameStyles = AirDnd.Models.Campaign.gameStyles;
+    var gameSystems = AirDnd.Models.Campaign.gameSystems;
+    var settings = AirDnd.Models.Campaign.settings;
     var numPlayers = AirDnd.Models.Campaign.numPlayers;
     var renderedContent = this.template({
       gameStyles: gameStyles,
@@ -24,7 +28,19 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
       settings: settings,
       numPlayers: numPlayers
     });
+
     this.$el.html(renderedContent);
+
+// Location input autocomplete
+
+
+    var input = this.$el.find('#pac-input');
+    input = input[0];
+    var options = { types: ['geocode'] };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var searchBox = new google.maps.places.SearchBox(input);
+
+
     var $startDate = this.$el.find('#start_date');
     var startDate = $startDate.datepicker({
       onRender: function(date) {
@@ -42,19 +58,24 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
       endDate.hide();
     }).data('datepicker');
     return this;
+
   },
 
   submit: function(event) {
     event.preventDefault();
-    debugger
     var inputData = $(event.currentTarget).serializeJSON()["request"];
-    var newCampaign = new AirDnd.Models.Campaign(inputData);
-    newCampaign.save({}, {
-      success: function(response) {
-        var id = response.get("id");
-        AirDnd.Collections.campaigns.add(newCampaign);
-        Backbone.history.navigate("#/campaigns/"+id, {trigger: true});
+    var searchParams = this.compactObject(inputData);
+    AirDnd.Routers.AppRouter.searchParams = searchParams;
+    Backbone.history.navigate("#/search", {trigger: true});
+  },
+
+  compactObject : function(object) {
+    var clone = _.clone(object);
+    _.each(clone, function(value, key){
+      if (value === "") {
+        delete clone[key];
       }
     });
+    return clone;
   },
 });

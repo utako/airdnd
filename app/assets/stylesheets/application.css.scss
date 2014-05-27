@@ -25,18 +25,491 @@ body.sign_up {
   width: 100%;
 }
 
-.search-container {
-  width: 100%;
+a {
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
-.search-form input {
-  width: 30%;
+.btn-success {
+  border-color: #4A6146;
+  background-color: #638C5B;
+}
+
+.btn-success:hover {
+  border-color:  #4A6146;
+  background-color:  #5A7355;
+}
+
+a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.new-user {
+  margin-left: 1pc;
+  font-size: 14pt;
+}
+
+
+.carousel-inner {
+  margin-top: -35px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.carousel-inner > .item > img {
+  display: block;
+  min-width: 100%;
+  max-width: 150%;
+  min-height: 100%;
+  line-height: 1;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  text-align: left;
+  width: 830px;
+  top: 30%;
+  left: 20%;
+  right: 20%;
+  bottom: 30%;
+  padding-bottom: 30px;
+  .form-group {
+    margin: auto;
+    height: 33px;
+  }
+}
+
+
+.search-form {
+  // width: 100%;
+  border: #C5D6CA solid 3px;
+  background-color: #C5D6CA;
+  border-radius: 5px;
+  // width: 40%;
+  // float: left;
+  input .controls {
+    border: #C5D6CA solid 2px;
+    border-radius: 5px;
+  }
+  input {
+    float: left;
+  }
+  select {
+    float: left;
+    border: #C5D6CA solid 1px;
+    border-radius: 5px;
+  }
+}
+
+.carousel-caption {
+  h1 {
+    font-family: "Georgia", serif;
+  }
+  form {
+    // background-color: grey;
+    border-radius: 5px;
+  }
+  h3 {
+    margin-top: -8px;
+  }
+}
+
+// SEARCH SHOW PAGE
+
+#map-canvas {
+  // border: thin solid red;
+  margin-top: 0px;
   float: left;
+  height: 100%;
+  width: 30pc;
+  overflow: hidden;
+}
+
+.search-show {
+  margin-top: -20px;
+  height: 100%;
+}
+
+.campaign-previews {
+  width: 100%;
+  height: 100%;
+}
+
+.campaign-preview {
+  border-radius: 5px;
+  border: thin solid #E9F0ED;
+  width: 50%;
+  min-width: 20pc;
+  float: left;
+  margin-bottom: 0.5pc;
+}
+
+#float-center {
+  float: left;
+  position: relative;
+  right: -50%;
+  text-align: left;
+}
+
+@media (max-width: 1250px) {
+  .campaign-preview {
+    // border: thin solid yellow;
+    width: 100%;
+    float: left;
+  }
+
+  #preview-photo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+}
+
+.float-center {
+  margin: auto;
+  position: relative;
+  right: 50%;
+}
+
+#preview-photo img{
+  height: 20pc;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+#photo-caption {
+  margin-top: -42px;
+  margin-left: 1pc;
+  z-index: 100;
+  color: white;
+}
+
+#preview-description {
+  margin: 1pc;
+  margin-top: 20px;
+  color: grey;
+}
+
+#preview-info {
+  float: left;
+  width: 85%;
+  height: 100%;
+}
+
+#preview-players {
+  float: right;
+  font-size: 20pt;
+  color: #6E8A5C;
+  height: 100%;
+  text-align: right;
+}
+
+.search-results {
+  padding-left: 1pc;
+  padding-right: 1.5pc;
+  height: 100%;
+  // border: thin solid red;
+  overflow-y: scroll;
+}
+
+#filters {
+  margin-top: 1pc;
+  padding: 1px;
+  height: 53px;
+  width: 100%;
+  border: thin solid #E9F0ED;
+  border-radius: 5px;
+  margin-bottom: 1pc;
+  background-color: #F0F2ED;
+  .form-control {
+    border: thin solid #F0F2ED;
+    float: left;
+    height: 1.5pc;
+    z-index: 0;
+    position: relative;
+  }
+  .form-control:focus {
+    z-index: 1;
+
+  }
+  #name {
+    width: 40%;
+  }
+  .location {
+    width: 60%;
+  }
+  #style {
+    width: 20%;
+  }
+  #system {
+    width: 20%;
+  }
+  #setting {
+    width: 30%;
+  }
+  #players {
+    width: 30%;
+  }
 }
 
 .date-wrapper {
-  color: grey;
+  // color: grey;
 }
+
+
+
+
+/* LOG IN AND SIGN UP PAGE */
+
+.session-form {
+  margin-top: 5pc;
+  margin-left: 10%;
+  color: white;
+  width: 30%;
+}
+
+.session-form .form-control {
+  width: 20pc;
+}
+
+/* NOT SURE */
+
+.profile-form {
+  margin-top: 5pc;
+  margin-left: 10%;
+  color: white;
+  width: 30%;
+}
+
+.profile-form .form-control {
+  width: 20pc;
+}
+
+/* CAMPAIGN SHOW PAGE */
+
+.campaign-show {
+  // background-color: yellow;
+  margin-left: 1pc;
+  width: 100%;
+  border: solid thin red;
+}
+
+#campaign-title {
+  height: 40px;
+}
+
+#campaign-title-form {
+  margin-top: 20px;
+  height: 40px;
+}
+
+#editCampaignPrefModal {
+  text-align: center;
+}
+
+.thumbnail {
+  float: left;
+  margin-right: 0;
+  padding: 0;
+  height: 3pc;
+  width: 3pc;
+  img {
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+  }
+}
+
+.campaigns-show {
+  width: 100%;
+  position: absolute;
+}
+
+.pagination {
+  margin-top: 8px;
+  margin-bottom: -5px;
+}
+
+.campaign-body {
+  // background-color: pink;
+  // padding: 1pc;
+  width: 50pc;
+  margin-left: 3pc;
+  float: left;
+  min-height: 50pc;
+  // border: solid thin green;
+}
+
+.campaign-photos {
+  float: left;
+  margin-bottom: 0.5pc;
+  img {
+    width: 100%;
+  }
+}
+
+.campaign-thumbnails {
+  border-radius: 5px;
+  border: solid thin #E6E6E6;
+  margin-top: 0.5pc;
+  margin-left: 0px;
+  width: 50pc;
+  .thumbnail {
+    margin-top: 0.5pc;
+    margin-left: 0.5pc;
+    margin-bottom: 0.5pc;
+  }
+}
+
+.main-photo {
+  position: relative;
+  width: 50pc;
+  margin-left: 14px;
+  img {
+    border-radius: 3px;
+  }
+}
+
+#add-photo-btn {
+  border: none;
+  position: absolute;
+  margin-left: 45.5pc;
+  margin-top: 1pc;
+}
+
+.edit-campaign-md {
+  border: none;
+  margin-left: 1pc;
+}
+
+.campaign-header {
+  // display: block;
+  margin-left: 3pc;
+  float: left;
+  width: 50pc;
+  // margin: auto;
+  background-color: white;
+  // border: solid thin black;
+}
+
+.campaign-info {
+  float: left;
+  border: solid thin #E6E6E6;
+  border-radius: 5px;
+  width: 50pc;
+  margin-left: 0;
+  padding: 1pc;
+  padding-top: 0;
+}
+
+.campaign-side {
+  text-align: center;
+  overflow: hidden;
+  // margin: 2pc;
+  margin: auto;
+  margin-top: 137px;
+  // height: 50pc;
+  width: 25pc;
+  // float: right;
+}
+
+.campaign-join {
+  border-radius: 5px;
+  border: thin solid #E6E6E6;
+  padding-bottom: 1pc;
+  h1 {
+    font-family: "Georgia", serif;
+    color: #46614D;
+  }
+}
+
+@media (max-width: 767px) {
+  campaign-side: {
+    width: 1000px;
+  }
+  .campaign-join {
+    width: 1000px;
+  }
+  .campaign-host {
+    width: 100%;
+  }
+}
+
+.campaign-host {
+  margin-top: 1pc;
+  width: 25pc;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.5pc;
+  margin-bottom: 2pc;
+  border: thin solid #E6E6E6;
+  h3 {
+    font-family: "Georgia", serif;
+    color: #46614D;
+  }
+  h5 {
+    color: #BCC2C4;
+    line-height: 50%;
+  }
+  img {
+    margin-top: 1pc;
+    height: auto;
+    max-width: 250px;
+    border-radius: 5px;
+  }
+}
+
+/* NEW CAMPAIGN FORM */
+
+.campaigns-new {
+  background-image: url('thisguy.jpg');
+  background-size: cover;
+}
+
+.host-onboarding {
+  text-align: right;
+  float: right;
+  width: 100%;
+  height: 100%;
+  border: #6E8A5C thin solid;
+}
+
+.datepicker.dropdown-menu {
+  z-index: 5000;
+}
+
+.pac-container {
+  z-index: 5000;
+}
+
+.host-header {
+  margin-top: -20px;
+  width: 100%;
+  height: 725px;
+  float: left;
+  color: white;
+  text-align: left;
+  background-image: url('thisguy.jpg');
+  background-size: cover;
+  h1 {
+    margin-left: 1pc;
+    font-size: 50pt;
+  }
+  p {
+    margin-left: 1pc;
+    font-size: 20pt;
+  }
+  button {
+    margin-left: 1pc;
+  }
+}
+
+/* NAV BAR */
 
 .navbar {
   border-radius: 0px;
@@ -52,109 +525,7 @@ body.sign_up {
 
 .navbar-nav {
   margin-left: 120px;
-}
-
-.carousel-inner {
-  margin-top: -35px;
-  height: 600px;
-  overflow: hidden;
-}
-
-.carousel-inner > .item > img {
-  display: block;
-  min-width: 100%;
-  max-width: 150%;
-  min-height: 100%;
-  line-height: 1;
-  object-fit: cover;
-}
-
-.carousel-caption {
-  text-align: left;
-  width: 60%;
-  top: 20%;
-  left: 20%;
-  right: 20%;
-  bottom: 30%;
-  padding-bottom: 30px;
-}
-
-.carousel-caption h3 {
-  margin-top: -8px;
-}
-
-.carousel-caption form {
-  background-color: grey;
-  border-radius: 5px;
-}
-
-.session-form {
-  margin-top: 5pc;
-  margin-left: 10%;
-  color: white;
-  width: 30%;
-}
-
-.session-form .form-control {
-  width: 20pc;
-}
-
-.profile-form {
-  margin-top: 5pc;
-  margin-left: 10%;
-  color: white;
-  width: 30%;
-}
-
-.profile-form .form-control {
-  width: 20pc;
-}
-
-.campaign-show {
-  // background-color: yellow;
-  width: 100%;
-  border: solid thin red;
-}
-
-.campaign-header {
-  // display: block;
-  background-color: white;
-  border: solid thin black;
-}
-
-.campaign-features {
-  background-color: orange;
-  // float: left;
-  height: 30pc;
-  border: solid thin blue;
-}
-
-.campaign-features img {
-  max-height: 100%;
-  overflow: hidden;
-}
-
-.campaign-body {
-  background-color: pink;
-  // float: left;
-  margin: 0;
-  height: 40pc;
-  border: solid thin green;
-}
-
-.campaign-host {
-  background-color: purple;
-  width: 15pc;
-  height: 30pc;
-  border: solid thin green;
-}
-
-.host-onboarding {
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  border: black thin solid;
-  background-color: white;
+  height: 50px;
 }
 
 $bgDefault      : #222621;

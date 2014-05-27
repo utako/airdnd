@@ -17,6 +17,8 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require serializeJSON
+//= require holder
+//= require moment-with-langs
 //= require air_dnd
 //= require_tree ../templates
 //= require_tree ./models

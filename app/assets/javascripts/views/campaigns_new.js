@@ -1,5 +1,11 @@
 window.AirDnd.Views.campaignsNew = Backbone.View.extend({
   template: JST["campaigns/new"],
+  className: "campaigns-new",
+
+  initialize: function () {
+    // google.maps.event.addDomListener(window, 'keydown', this.initializeMap);
+  },
+
 
   events: {
     "submit form": "submit"
@@ -16,9 +22,20 @@ window.AirDnd.Views.campaignsNew = Backbone.View.extend({
       gameSystems: gameSystems,
       settings: settings,
     });
+
+    this.$el.html(renderedContent);
+
+    // Location input autocomplete
+
+    var input = this.$el.find('#pac-input');
+    input = input[0];
+    var autocomplete = new google.maps.places.Autocomplete(input, {});
+    var searchBox = new google.maps.places.SearchBox((input));
+
+    //
+
     var firstDate;
     var view = this;
-    this.$el.html(renderedContent);
     var $startDate = this.$el.find('#start_date');
     var startDate = $startDate.datepicker({
       onRender: function(date) {
@@ -48,6 +65,7 @@ window.AirDnd.Views.campaignsNew = Backbone.View.extend({
     return this;
   },
 
+
   submit: function(event) {
     event.preventDefault();
     var inputData = $(event.currentTarget).serializeJSON()["campaign"];
@@ -56,7 +74,10 @@ window.AirDnd.Views.campaignsNew = Backbone.View.extend({
       success: function(response) {
         var id = response.get("id");
         AirDnd.Collections.campaigns.add(newCampaign);
-        Backbone.history.navigate("#/campaigns/"+id, {trigger: true});
+        $('#newCampaignModal').modal('hide');
+        $('#newCampaignModal').on('hidden.bs.modal', function() {
+          Backbone.history.navigate("#/campaigns/"+id, {trigger: true});
+        });
       }
     });
   },
