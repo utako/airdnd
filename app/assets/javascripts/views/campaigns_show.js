@@ -6,6 +6,7 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
   initialize: function() {
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.model.photos(), "add sync", this.render);
+    this.listenTo(this.model.requests(), "add sync", this.render);
   },
 
   events: function() {
@@ -23,13 +24,13 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
     } else {
       return {
         "click .thumbnail": "toggleMainPhoto",
+        "click #campaign-join": "submitCampaignJoinRequest"
       }
     }
   },
 
 
   render: function() {
-    debugger
     var photoURLs = [];
     if (this.model.photos() && this.model.photos().length > 0) {
       for (var i=0; i<this.model.photos().length; i++) {
@@ -41,6 +42,7 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
     var settings = AirDnd.Models.Campaign.settings;
     var startDate = moment(this.model.get('start_date')).format('LL');
     var endDate = moment(this.model.get('end_date')).format('LL');
+    var joinRequest = this.model.requests().findWhere({user_id: currentUserId});
     var renderedContent = this.template({
       campaign: this.model,
       photo_urls: photoURLs,
@@ -49,6 +51,7 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
       settings: settings,
       startDate: startDate,
       endDate: endDate,
+      joinRequest: joinRequest
     });
     this.$el.html(renderedContent);
 
@@ -74,6 +77,20 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
   toggleMainPhoto: function(event) {
     var photoURL = $(event.currentTarget.children).attr('src')
     $('#main-photo').attr('src', photoURL);
+  },
+
+  submitCampaignJoinRequest: function(event) {
+    var view = this;
+    var userID = currentUserId;
+    var campaignID = this.model.id;
+    var inputData = {"campaign_join_request": {"campaign_id": campaignID, "user_id": userID}}
+    var newRequest = new AirDnd.Models.CampaignJoinRequest(inputData);
+    this.model.requests().create(newRequest, {
+      success: function(response) {
+        view.render();
+      }
+    })
+
   },
 
   editTitle: function(event) {

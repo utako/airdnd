@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525214940) do
+ActiveRecord::Schema.define(version: 20140528040756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "campaign_join_requests", force: true do |t|
+    t.integer  "user_id",                         null: false
+    t.integer  "campaign_id",                     null: false
+    t.string   "status",      default: "pending", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campaign_join_requests", ["campaign_id"], name: "index_campaign_join_requests_on_campaign_id", using: :btree
+  add_index "campaign_join_requests", ["status"], name: "index_campaign_join_requests_on_status", using: :btree
+  add_index "campaign_join_requests", ["user_id"], name: "index_campaign_join_requests_on_user_id", using: :btree
 
   create_table "campaign_photos", force: true do |t|
     t.integer "campaign_id", null: false

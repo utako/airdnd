@@ -5,13 +5,18 @@
 #  id          :integer          not null, primary key
 #  user_id     :integer          not null
 #  location    :string(255)      not null
-#  type        :string(255)      not null
 #  public      :boolean
 #  description :string(255)
 #  rules       :text
 #  num_members :integer          not null
 #  created_at  :datetime
 #  updated_at  :datetime
+#  title       :string(255)      not null
+#  game_style  :string(255)      not null
+#  game_system :string(255)      not null
+#  setting     :string(255)
+#  start_date  :datetime
+#  end_date    :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

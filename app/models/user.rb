@@ -13,6 +13,9 @@
 #  verified        :boolean          default(FALSE)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  fname           :string(255)
+#  lname           :string(255)
+#  filepicker_url  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -23,7 +26,8 @@ class User < ActiveRecord::Base
   before_validation :ensure_session_token
 
   has_many :hosted_campaigns, class_name: "Campaign", foreign_key: :user_id
-  has_one :profile_picture, class_name: "Photo", foreign_key: :user_id
+  has_many :campaign_join_requests, class_name: "CampaignJoinRequest", foreign_key: :user_id
+  has_many :requested_campaigns, through: :campaign_join_requests, source: :campaign
 
   def self.find_by_credentials(creds)
     @user = User.find_by_email(creds[:email])

@@ -34,6 +34,7 @@
       <% })%>
     </select>
     <select id='players' name="num_members" class="form-control">
+      <option value="" disabled selected>Players</option>
       <% _.each(numPlayers, function(num) { %>
         <% if (parseInt(searchParams.num_members) === parseInt(num)) { %>
           <option selected='selected' value="<%= parseInt(num) %>"><%= num %></option>

@@ -10,6 +10,15 @@ window.AirDnd.Models.Campaign = Backbone.Model.extend({
     return this._photos;
   },
 
+  requests: function() {
+    if (!this._requests) {
+      this._requests = new AirDnd.Collections.CampaignJoinRequests([], {
+        campaign: this
+      });
+    }
+    return this._requests;
+  },
+
   host: function() {
     if (!this._host) {
       this._host = new AirDnd.Models.Host([], {
@@ -27,6 +36,10 @@ window.AirDnd.Models.Campaign = Backbone.Model.extend({
     if (response.host) {
       this.host().set(response.host, { parse: true });
       delete response.host;
+    }
+    if (response.join_requests) {
+      this.requests().set(response.join_requests, {parse: true});
+      delete response.join_requests;
     }
     return response;
   },

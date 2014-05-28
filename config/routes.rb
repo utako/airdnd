@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :campaigns, except: [:new, :edit]
     resources :campaign_photos, except: [:new, :edit]
+    resources :campaign_join_requests, except: [:new, :edit]
   end
 
   resources :users
