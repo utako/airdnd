@@ -20,6 +20,10 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
         "click #campaign-description": "editDescription",
         "click #campaign-rules": "editRules"
       };
+    } else {
+      return {
+        "click .thumbnail": "toggleMainPhoto",
+      }
     }
   },
 
