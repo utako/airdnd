@@ -1,5 +1,5 @@
 window.AirDnd.Collections.CampaignJoinRequests = Backbone.Collection.extend({
-  url: 'api/campaign_join_requests',
+  url: 'api/campaigns/campaign_join_requests',
   model: AirDnd.Models.CampaignJoinRequest,
 
   initialize: function(model, options) {

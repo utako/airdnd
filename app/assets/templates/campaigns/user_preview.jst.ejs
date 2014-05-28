@@ -1,0 +1,37 @@
+<div id="user-info" data-toggle='modal' data-target='#<%=user.escape('id')%>InfoModal' class='request-response'>
+  <h5><%= user.escape('email') %></h5>
+</div>
+<% if (requestStatus !== "pending") { %>
+  <div id='request-response'><h5>- request <%= requestStatus %></h5></div>
+<% } else { %>
+  <div data-user-id="<%= user.id %>" id='request-response'>
+    <button id='approve-request' class='btn btn-xs btn-success'><span class="glyphicon glyphicon-ok"/></button>
+    <button id='deny-request' class='btn btn-xs btn-danger'><span class="glyphicon glyphicon-remove"/></button>
+  </div>
+<% } %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="<%=user.escape('id')%>InfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">About <%= user.escape('fname') || user.escape('email')%></h4>
+      </div>
+      <div class="modal-body">
+        <img src="<%= user.escape('filepicker_url') %>">
+        <div><h3><%= user.escape('fname') %> <%= user.escape('lname') %></h3></div>
+        <p><%= user.escape('about') %></p>
+        <p>Age: <%= user.escape('age') %></p>
+        <p>Gender: <%= user.escape('gender') %> </p>
+        <p>Email: <%= user.escape('email') %></p>
+        <p>Relationship Status: </p>
+        <p>Member since: <%= createdAt %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

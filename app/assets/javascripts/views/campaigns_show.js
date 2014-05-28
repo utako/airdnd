@@ -1,4 +1,4 @@
-window.AirDnd.Views.campaignsShow = Backbone.View.extend({
+window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
   template: JST["campaigns/show"],
 
   className: "campaigns-show",
@@ -6,7 +6,10 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
   initialize: function() {
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.model.photos(), "add sync", this.render);
-    this.listenTo(this.model.requests(), "add sync", this.render);
+    this.listenTo(this.model.requests(), "add", this.render);
+    this.listenTo(this.model.users(), "sync", this.render);
+    this.listenTo(this.model.users(), "add", this.addUser);
+    this.model.users().each(this.addUser.bind(this));
   },
 
   events: function() {
@@ -19,7 +22,10 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
         "click #campaign-title": "editTitle",
         "submit #edit-pref-form": "editPreferences",
         "click #campaign-description": "editDescription",
-        "click #campaign-rules": "editRules"
+        "click #campaign-rules": "editRules",
+        "click #requests-btn": "toggleJoinRequests",
+        "click #approve-request": "approveJoinRequest",
+        "click #deny-request": "denyJoinRequest"
       };
     } else {
       return {
@@ -43,6 +49,7 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
     var startDate = moment(this.model.get('start_date')).format('LL');
     var endDate = moment(this.model.get('end_date')).format('LL');
     var joinRequest = this.model.requests().findWhere({user_id: currentUserId});
+    var users = this.model.users();
     var renderedContent = this.template({
       campaign: this.model,
       photo_urls: photoURLs,
@@ -51,10 +58,12 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
       settings: settings,
       startDate: startDate,
       endDate: endDate,
-      joinRequest: joinRequest
+      joinRequest: joinRequest,
+      users: users
     });
     this.$el.html(renderedContent);
-
+    this.renderSubviews();
+    this.delegateEvents();
     var input = this.$el.find('#pac-input');
     input = input[0];
     var autocomplete = new google.maps.places.Autocomplete(input, {});
@@ -90,7 +99,32 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
         view.render();
       }
     })
+  },
 
+  approveJoinRequest: function(event) {
+    var userID = $(event.currentTarget).parent().data('user-id');
+    var joinRequest = this.model.requests().where({user_id: userID})[0];
+    $('#request-response').replaceWith("<div id='request-response'><h5>Request approved!</h5></div>");
+    joinRequest.set('status', 'approved');
+    joinRequest.save();
+
+  },
+
+  denyJoinRequest: function(event) {
+    var userID = $(event.currentTarget).parent().data('user-id');
+    var joinRequest = this.model.requests().where({user_id: userID})[0];
+    $('#request-response').replaceWith("<div id='request-response'><h5>Request approved!</h5></div>");
+    joinRequest.set('status', 'denied');
+    joinRequest.save();
+  },
+
+  addUser: function(user) {
+    var userPreview = new AirDnd.Views.campaignUserPreview({
+      model: user,
+      collection: this.model.requests()
+    });
+    this.addSubview('.user-previews', userPreview);
+    userPreview.render();
   },
 
   editTitle: function(event) {
@@ -161,6 +195,10 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
 
   toggleElement: function(event) {
     $(event.currentTarget).children().toggleClass("show hide")
+  },
+
+  toggleJoinRequests: function(event) {
+    $(event.currentTarget.parentElement.parentElement).children().toggleClass("show hide")
   },
 
   setPhotoURL: function(photoURL) {

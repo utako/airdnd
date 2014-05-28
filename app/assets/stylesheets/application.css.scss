@@ -422,9 +422,38 @@ a:hover {
   border-radius: 5px;
   border: thin solid #E6E6E6;
   padding-bottom: 1pc;
+  h3 {
+    margin-bottom: 1pc;
+  }
   h1 {
     font-family: "Georgia", serif;
     color: #46614D;
+  }
+}
+
+.user-previews {
+  margin-top: 0.5pc;
+}
+
+.user-preview {
+  padding: 0.5pc;
+  width: 100%;
+  #user-info {
+    display: inline-block;
+  }
+  #request-response {
+    display: inline-block;
+  }
+  h5 {
+    margin-top: 3px;
+  }
+  h5:hover {
+    cursor: pointer;
+    text-shadow: #EAFFD1 0.1em 0.1em 0.2em;
+  }
+  .btn {
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }
 

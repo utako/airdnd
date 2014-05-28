@@ -37,7 +37,7 @@ module Api
     private
 
     def campaign_params
-      params.require(:campaign).permit(:title, :location, :game_style, :game_system, :setting, :public, :description, :rules, :num_members, :start_date, :end_date)
+      params.require(:campaign).permit(:user_id, :title, :location, :game_style, :game_system, :setting, :public, :description, :rules, :num_members, :start_date, :end_date)
     end
   end
 end

@@ -20,11 +20,15 @@ module Api
       end
     end
 
-    # not working yet
-    def destroy
-      current_user.boards.find(params[:id]).try(:destroy)
-      render json: {}
+    def update
+      request = CampaignJoinRequest.find(params[:id])
+      if request.update_attributes(campaign_join_request_params)
+        render partial: "api/campaigns/campaign_join_request", locals: { campaign_join_request: request}
+      else
+        render json: {errors: request.errors.full_messages }, status: 422
+      end
     end
+
 
     private
 
