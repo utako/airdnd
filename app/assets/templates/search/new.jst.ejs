@@ -41,6 +41,7 @@
           <% })%>
         </select>
         <select name="request[num_members]" class="form-control" style="width:7pc">
+          <option value="" disabled selected>Players</option>
           <% _.each(numPlayers, function(numPlayer) { %>
             <option value="<%= numPlayer.split(" ")[0] %>"><%= numPlayer %></option>
           <% })%>
