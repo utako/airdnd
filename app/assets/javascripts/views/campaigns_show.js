@@ -8,16 +8,21 @@ window.AirDnd.Views.campaignsShow = Backbone.View.extend({
     this.listenTo(this.model.photos(), "add sync", this.render);
   },
 
-  events: {
-    "click .filepicker-btn" : "filepickerModal",
-    "click .thumbnail": "toggleMainPhoto",
-    "mouseenter .editable-attr": "toggleElement",
-    "mouseleave .editable-attr": "toggleElement",
-    "click #campaign-title": "editTitle",
-    "submit #edit-pref-form": "editPreferences",
-    "click #campaign-description": "editDescription",
-    "click #campaign-rules": "editRules"
+  events: function() {
+    if (this.model.get('user_id') === currentUserId) {
+      return {
+        "click .filepicker-btn" : "filepickerModal",
+        "click .thumbnail": "toggleMainPhoto",
+        "mouseenter .editable-attr": "toggleElement",
+        "mouseleave .editable-attr": "toggleElement",
+        "click #campaign-title": "editTitle",
+        "submit #edit-pref-form": "editPreferences",
+        "click #campaign-description": "editDescription",
+        "click #campaign-rules": "editRules"
+      };
+    }
   },
+
 
   render: function() {
     debugger
