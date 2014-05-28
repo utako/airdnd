@@ -5,6 +5,7 @@ gem 'rails', '4.1.0'
 gem 'backbone-on-rails'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
+gem 'rails_12factor', group: :production
 gem 'filepicker-rails'
 gem 'bootstrap-sass'
 gem 'pusher'
