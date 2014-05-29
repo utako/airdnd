@@ -493,6 +493,33 @@ a:hover {
   }
 }
 
+.approved-members {
+  border-radius: 5px;
+  border: thin solid #E6E6E6;
+  position: absolute;
+  width: 25pc;
+  padding-bottom: 1pc;
+  .member-show {
+    height: 81px;
+    width: 100%;
+    margin-left: 1pc;
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+  #member-info {
+    font-size: 14pt;
+    float: left;
+  }
+  #member-thumb {
+    height: 65px;
+    width: 65px;
+    border-radius: 3px;
+    margin-right: 8px;
+    background-color: #E6E6E6;
+  }
+}
+
+
 /* NEW CAMPAIGN FORM */
 
 .campaigns-new {

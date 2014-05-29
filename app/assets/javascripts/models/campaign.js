@@ -37,6 +37,10 @@ window.AirDnd.Models.Campaign = Backbone.Model.extend({
     return this._users;
   },
 
+  approvedRequests: function() {
+    return this.requests().where({status: "approved"});
+  },
+
   parse: function(response) {
     if (response.photos) {
       this.photos().set(response.photos, { parse: true });

@@ -8,10 +8,14 @@ module Api
     end
 
     def show
-      @campaign = Campaign.find(params[:campaign_id])
+      @campaign = Campaign.find(params[:id])
       @campaign_users = @campaign.users
-      @campaign_user = @campaign_users.where({user_id: params[:user_id]})
-      render partial: "api/campaign_users/campaign_user", locals: { campaign_user: @campaign_user }
+      @campaign_user = @campaign_users.where({id: params[:user_id]}).first
+      if @campaign_user
+        render partial: "api/campaign_users/campaign_user", locals: { campaign_user: @campaign_user }
+      else
+        render json: {}
+      end
     end
 
 

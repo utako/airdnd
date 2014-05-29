@@ -50,6 +50,7 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
     var endDate = moment(this.model.get('end_date')).format('LL');
     var joinRequest = this.model.requests().findWhere({user_id: currentUserId});
     var users = this.model.users();
+    var approvedRequests = this.model.approvedRequests();
     var renderedContent = this.template({
       campaign: this.model,
       photo_urls: photoURLs,
@@ -59,7 +60,8 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
       startDate: startDate,
       endDate: endDate,
       joinRequest: joinRequest,
-      users: users
+      users: users,
+      approvedRequests: approvedRequests
     });
     this.$el.html(renderedContent);
     this.renderSubviews();
@@ -70,6 +72,10 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
     var searchBox = new google.maps.places.SearchBox((input));
 
     Holder.run();
+    var view = this;
+    approvedRequests.forEach(function(request) {
+      view.addApprovedRequest(request)
+    });
 
     return this;
   },
@@ -125,6 +131,20 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
     });
     this.addSubview('.user-previews', userPreview);
     userPreview.render();
+  },
+
+  addApprovedRequest: function(request) {
+    var users = this.model.users();
+    var requestUserID = request.get('user_id');
+    var user = users.getOrFetch(requestUserID);
+    if (user.get('email')) {
+      var memberShowView = new AirDnd.Views.campaignMemberShow({
+        model: user
+      });
+      this.addSubview('.approved-members', memberShowView);
+      memberShowView.render();
+    } else {
+    }
   },
 
   editTitle: function(event) {
