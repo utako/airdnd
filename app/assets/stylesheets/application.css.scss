@@ -145,6 +145,12 @@ a:hover {
   margin-bottom: 0.5pc;
 }
 
+.campaign-preview-glow {
+  border-color: #66AFE9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: 0 none;
+}
+
 #float-center {
   float: left;
   position: relative;

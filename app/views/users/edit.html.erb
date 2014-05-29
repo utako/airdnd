@@ -32,6 +32,16 @@
         <option class="form-control" value="other">Other</option>
       </select>
     </label>
+    <label>Relationship Status
+      <select class="form-group" name="user[relationship_status]">
+        <option class="form-control" value="Single">Single</option>
+        <option class="form-control" value="In a Relationship">In a Relationship</option>
+        <option class="form-control" value="It's Complicated">It's Complicated</option>
+        <option class="form-control" value="Married">Married</option>
+        <option class="form-control" value="Divorced">Divorced</option>
+        <option class="form-control" value="Separated">Separated</option>
+      </select>
+    </label>
     <div class="form-group">
       <label>Phone Number
         <input type="text" name="user[phone_number]" class="form-control" value="<%= @user.phone_number %>">

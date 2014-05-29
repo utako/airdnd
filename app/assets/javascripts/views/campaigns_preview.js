@@ -1,7 +1,9 @@
 window.AirDnd.Views.campaignPreview = Backbone.CompositeView.extend({
   template: JST["campaigns/preview"],
 
-  className: "campaign-preview",
+  className: function() {
+    return "campaign-preview campaign-preview-" + this.model.id;
+  },
 
   initialize: function(options) {
     this.listenTo(this.model, "sync", this.render);

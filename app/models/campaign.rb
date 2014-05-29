@@ -20,10 +20,14 @@
 #
 
 class Campaign < ActiveRecord::Base
+  extend ::Geocoder::Model::ActiveRecord
   validates :title, :host, :location, :setting, :game_style, :game_system,
     :num_members, presence: true
   belongs_to :host, class_name: "User", foreign_key: :user_id
   has_many :photos, class_name: "CampaignPhoto"
   has_many :join_requests, class_name: "CampaignJoinRequest", foreign_key: :campaign_id
   has_many :users, through: :join_requests, source: :user
+
+  geocoded_by :location
+  after_validation :geocode, if: :location_changed?
 end

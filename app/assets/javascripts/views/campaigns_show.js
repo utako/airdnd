@@ -108,11 +108,16 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
   },
 
   approveJoinRequest: function(event) {
+    var view = this;
     var userID = $(event.currentTarget).parent().data('user-id');
     var joinRequest = this.model.requests().where({user_id: userID})[0];
     $('#request-response').replaceWith("<div id='request-response'><h5>Request approved!</h5></div>");
     joinRequest.set('status', 'approved');
-    joinRequest.save();
+    joinRequest.save({}, {
+      success: function() {
+        view.render();
+      }
+    });
 
   },
 

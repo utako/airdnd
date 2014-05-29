@@ -4,7 +4,9 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   className: "search-show",
 
   initialize: function(options) {
+    var view = this;
     this.resizeContent();
+    this.markerLocations = {};
     this.listenTo(this.collection, "sync", this.render);
     this.listenTo(this.collection, "add", this.addCampaignPreview);
     this.unparsedParams = options.searchParams;
@@ -15,6 +17,10 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       campaigns = this.filterResults(this.searchParams, this.collection);
     }
     campaigns.each(this.addCampaignPreview.bind(this));
+    this.initialSearchLocation = options.searchParams.location;
+  },
+
+  events: {
 
   },
 
@@ -39,9 +45,18 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     var input = this.$el.find('#pac-input');
     input = input[0];
     var options = { types: ['geocode'] };
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-    var searchBox = new google.maps.places.SearchBox(input);
-    this.initializeMap();
+    // var autocomplete = new google.maps.places.Autocomplete(input, options);
+    // var searchBox = new google.maps.places.SearchBox(input);
+    var initialSearchLocation = this.initialSearchLocation;
+    if (!initialSearchLocation) {
+      view.initializeMap([37.7833, -122.4167]);
+    } else {
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode( { 'address': initialSearchLocation}, function(results, status) {
+        var searchCoords = [results[0].geometry.location.k, results[0].geometry.location.A];
+        view.initializeMap(searchCoords);
+      });
+    }
     $('.location').keyup(function() {view.filterByLocation()});
     $('#style').change(function() {view.filterByChange()});
     $('#system').change(function() {view.filterByChange()});
@@ -81,6 +96,8 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   addCampaignPreview: function(campaign) {
+    var campaignID = campaign.id;
+    this.markerLocations[campaignID] = [parseFloat(campaign.get('latitude')), parseFloat(campaign.get('longitude'))];
     var campaignPreview = new AirDnd.Views.campaignPreview({
       model: campaign,
     });
@@ -114,14 +131,42 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     return parsedParams;
   },
 
-  initializeMap: function() {
+
+  initializeMap: function(searchCoords) {
+    var view = this;
     var map;
     var mapOptions = {
       zoom: 13,
-      center: new google.maps.LatLng(37.76, -122.41)
+      center: new google.maps.LatLng(searchCoords[0], searchCoords[1])
     };
     var canvas = this.$el.find('#map-canvas')[0];
     map = new google.maps.Map(canvas, mapOptions);
+
+
+    _.each(this.markerLocations, function(value, key) {
+      var pos = new google.maps.LatLng(value[0], value[1]);
+      var title = "campaign-" + key;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: pos,
+        title: title
+      });
+      view.bindMarkerEvents(marker, key, map)
+    });
+  },
+
+  bindMarkerEvents: function(marker, key, map) {
+    var view = this;
+    var elementSelector = '.campaign-preview-' + key;
+    google.maps.event.addListener(marker, 'mouseover', function() {
+      $('.search-results').animate({
+        scrollTop: $(elementSelector).offset().top - $('.campaign-previews').offset().top
+      }, 750);
+      $(elementSelector).addClass('campaign-preview-glow');
+    });
+    google.maps.event.addListener(marker, 'mouseout', function() {
+      $(elementSelector).removeClass('campaign-preview-glow');
+    });
   },
 
   resizeContent: function() {

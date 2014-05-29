@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528040756) do
+ActiveRecord::Schema.define(version: 20140529041621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20140528040756) do
     t.string   "setting"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "campaigns", ["location"], name: "index_campaigns_on_location", using: :btree
@@ -66,19 +68,20 @@ ActiveRecord::Schema.define(version: 20140528040756) do
   add_index "user_photos", ["user_id"], name: "index_user_photos_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "session_token",                   null: false
-    t.string   "password_digest",                 null: false
-    t.string   "email",                           null: false
+    t.string   "session_token",                       null: false
+    t.string   "password_digest",                     null: false
+    t.string   "email",                               null: false
     t.integer  "age"
     t.string   "gender"
     t.text     "about"
     t.string   "phone_number"
-    t.boolean  "verified",        default: false
+    t.boolean  "verified",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fname"
     t.string   "lname"
     t.string   "filepicker_url"
+    t.string   "relationship_status"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
