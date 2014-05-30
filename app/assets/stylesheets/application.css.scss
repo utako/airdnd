@@ -25,6 +25,11 @@ body.sign_up {
   width: 100%;
 }
 
+.second-button {
+  margin-left: -1pc;
+  margin-top: 1pc;
+}
+
 a {
   color: #FFFFFF;
   text-decoration: none;
@@ -68,7 +73,7 @@ a:hover {
 
 .carousel-caption {
   text-align: left;
-  width: 830px;
+  width: 783px;
   top: 30%;
   left: 20%;
   right: 20%;
@@ -84,9 +89,11 @@ a:hover {
 }
 .user-pic img{
   border-radius: 5px;
+  border: white solid thin;
+  margin-left: 3pc;
   margin-top: 168px;
   float: left;
-  height: 300px;
+  height: 254px;
   width: auto;
 }
 
@@ -365,6 +372,7 @@ a:hover {
 
 .campaign-photos {
   float: left;
+  margin-top: 1pc;
   margin-bottom: 0.5pc;
   img {
     width: 100%;
@@ -428,7 +436,7 @@ a:hover {
   text-align: center;
   overflow: hidden;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 16px;
   // height: 50pc;
   // min-width: 25pc;
   min-width: 160px;

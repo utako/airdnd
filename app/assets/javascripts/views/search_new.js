@@ -34,11 +34,11 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
 // Location input autocomplete
 
 
-    var input = this.$el.find('#pac-input');
-    input = input[0];
-    var options = { types: ['geocode'] };
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-    var searchBox = new google.maps.places.SearchBox(input);
+    // var input = this.$el.find('#pac-input');
+    // input = input[0];
+    // var options = { types: ['geocode'] };
+    // var autocomplete = new google.maps.places.Autocomplete(input, options);
+    // var searchBox = new google.maps.places.SearchBox(input);
 
 
     var $startDate = this.$el.find('#start_date');

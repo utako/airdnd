@@ -10,9 +10,9 @@
 </div>
 <div class="row campaign-body">
     <ul class="pagination">
-      <li><a>Photos</a></li>
-      <li><a>Map</a></li>
-      <li><a>Calendar</a></li>
+      <!-- <li><a>Photos</a></li> -->
+      <!-- <li><a>Map</a></li> -->
+      <!-- <li><a>Calendar</a></li> -->
     </ul>
     <div class="row campaign-photos">
       <div class="row main-photo">
@@ -24,7 +24,10 @@
                 <img id="thumbnail" src="<%= photo_url %>">
               </a>
             <% }) %>
-            <button class='thumbnail glyph-button btn btn-default btn-xs filepicker-btn' type="filepicker" data-fp-apikey="<%= filepickerAPIKey %>" data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-option-multiple="true" data-fp-maxsize="5000" onchange="out='';for(var i=0;i<event.fpfiles.length;i++){out+=event.fpfiles[i].url;out+=' '};alert(out)"><span class="glyphicon glyphicon-plus"></span></button>
+            <% if (campaign.get('user_id') === currentUserId) { %>
+              <button class='thumbnail glyph-button btn btn-default btn-xs filepicker-btn' type="filepicker" data-fp-apikey="<%= filepickerAPIKey %>" data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-option-multiple="true" data-fp-maxsize="5000" onchange="out='';for(var i=0;i<event.fpfiles.length;i++){out+=event.fpfiles[i].url;out+=' '};alert(out)"><span class="glyphicon glyphicon-plus"></span></button>
+            <% } %>
+            <% %>
             <!-- <button class="thumbnail glyph-button btn-xs btn-default"><span class="glyphicon glyphicon-plus"></span></button> -->
           </div>
         <% } else { %>
@@ -59,7 +62,7 @@
 </div>
 <div class="campaign-side">
   <div class=campaign-join>
-    <h1>Players: <%= campaign.escape('num_members') %><button class="glyph-button btn btn-md btn-default edit-campaign-md" id='edit-num-members'><span class="glyphicon glyphicon-pencil"></span></button></h1>
+    <h1>Players: <%= campaign.escape('num_members') %></h1>
     <h3><%= startDate %> ~ <%= endDate %></h3>
     <% if (campaign.get('user_id') === currentUserId && users.models[0] && users.models[0].escape('email')) { %>
       <div id='requests-toggle'>

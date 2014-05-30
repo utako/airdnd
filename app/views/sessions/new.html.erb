@@ -15,9 +15,18 @@
       </label>
     </div>
     <input type="submit" value="Sign In" class="btn btn-success">
-    <button class="btn btn-md btn-default" style="margin-left: 1pc">Sign In as Guest</button>
-    <a href="" class="new-user" data-toggle="modal" data-target="#myModal">New to AirDnD?</a>
   </form>
+  <form action="<%= session_url %>" method="post" class='second-button'>
+    <%= form_auth_token %>
+    <input type="hidden" name="user[email]" class="form-control" value='guest'>
+    <input type="hidden" name="user[password]" class="form-control" value='guestpassword'>
+    <input type="submit" value="Sign In as Guest" class="btn btn-md btn-default" style='margin-left: 1pc'>
+  </form>
+
+
+
+    <!-- <button class="btn btn-md btn-default" style="margin-left: 1pc">Sign In as Guest</button> -->
+    <!-- <a href="" class="new-user" data-toggle="modal" data-target="#myModal">New to AirDnD?</a> -->
 </div>
 
 <!-- Modal -->

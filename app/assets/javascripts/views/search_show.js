@@ -4,6 +4,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   className: "search-show",
 
   initialize: function(options) {
+    this.count = 0;
     console.log('initial');
     var view = this;
     this.resizeContent();
@@ -42,22 +43,29 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
     this.$el.html(renderedContent);
     this.renderSubviews();
-
+    this.delegateEvents();
     // var input = this.$el.find('#pac-input');
     // input = input[0];
     // var options = { types: ['geocode'] };
     // var autocomplete = new google.maps.places.Autocomplete(input, options);
     // var searchBox = new google.maps.places.SearchBox(input);
     var initialSearchLocation = this.initialSearchLocation;
+    // var searchCoords = this.searchCoords;
     if (!initialSearchLocation) {
       view.initializeMap([37.757444, -122.447016]);
     } else {
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode( { 'address': initialSearchLocation}, function(results, status) {
-        var searchCoords = [results[0].geometry.location.k, results[0].geometry.location.A];
-        view.initializeMap(searchCoords);
-      });
+      if (this.searchCoords) {
+        view.initializeMap(this.searchCoords);
+      } else {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': initialSearchLocation}, function(results, status) {
+          var searchCoords = [results[0].geometry.location.k, results[0].geometry.location.A];
+          view.searchCoords = searchCoords;
+          view.initializeMap(searchCoords);
+        });
+      }
     }
+    this.markerLocations = {};
     // $('.location').keyup(function() {view.filterByLocation()});
     $('#style').change(function() {view.filterByChange()});
     $('#system').change(function() {view.filterByChange()});
@@ -69,7 +77,8 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   filterByLocation: function (coords) {
     console.log('filter by location');
     var view = this;
-    var campaigns = this.collection.filter(function(campaign) {
+    this.removeAllSubviews();
+      var campaigns = this.collection.filter(function(campaign) {
       var campLat = campaign.get('latitude');
       var campLong = campaign.get('longitude');
       return ((campLat > coords.latW && campLat < coords.latE) && (campLong > coords.longS && campLong < coords.longN));
@@ -77,6 +86,37 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     var newCampaignCollection = new AirDnd.Collections.Campaigns(campaigns);
     var filteredCampaignCollection = this.filterResults(this.searchParams, newCampaignCollection);
     filteredCampaignCollection.each(this.addCampaignPreview.bind(this));
+    var view = this;
+    var gameStyles = AirDnd.Models.Campaign.gameStyles;
+    var gameSystems = AirDnd.Models.Campaign.gameSystems;
+    var settings = AirDnd.Models.Campaign.settings;
+    var numPlayers = AirDnd.Models.Campaign.numPlayers;
+
+    var renderedContent = this.template({
+      gameStyles: gameStyles,
+      gameSystems: gameSystems,
+      settings: settings,
+      numPlayers: numPlayers,
+      searchParams: this.unparsedParams,
+    });
+
+    this.$el.html(renderedContent);
+    this.renderSubviews();
+    console.log('omg');
+    console.log(this.searchCoords);
+    var searchCoords = this.searchCoords;
+    console.log(searchCoords);
+    var map;
+    var mapOptions = {
+      zoom: 12,
+      center: new google.maps.LatLng(searchCoords[0], searchCoords[1])
+    };
+    var canvas = this.$el.find('#map-canvas')[0];
+    map = new google.maps.Map(canvas, mapOptions);
+    this.addListeners(map);
+    this.makeMarkers();
+    this.initialSearchLocation = searchCoords;
+    this.render();
     // var searchLocation = event.currentTarget.value;
     // this.unparsedParams['location'] = searchLocation;
     // this.searchParams = this.parseParams(this.unparsedParams);
@@ -106,7 +146,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
   addCampaignPreview: function(campaign) {
     console.log('add campaign preview');
-    console.log(campaign);
 
     var campaignID = campaign.id;
     this.markerLocations[campaignID] = [parseFloat(campaign.get('latitude')), parseFloat(campaign.get('longitude'))];
@@ -149,7 +188,8 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
 
   initializeMap: function(searchCoords) {
-    console.log('map');
+    console.log(searchCoords);
+    console.log('lol');
     var view = this;
     var map;
     var mapOptions = {
@@ -159,17 +199,32 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     var canvas = this.$el.find('#map-canvas')[0];
     map = new google.maps.Map(canvas, mapOptions);
     this.mapObject = map;
-
+    this.searchCoords = searchCoords;
     var searchParamCoords = {};
 
-    google.maps.event.addListenerOnce(map, 'idle', function() {
+    google.maps.event.addListener(map, 'dragend', function() {
+      view.searchCoords = [map.center.k, map.center.A];
+      console.log(this.searchCoords);
       searchParamCoords.latW = map.getBounds().Ba.k;
       searchParamCoords.longS = map.getBounds().ra.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
       searchParamCoords.longN = map.getBounds().ra.k;
+      view.filterByLocation(searchParamCoords);
     });
+    debugger 
+    if (this.count === 0 && map.getBounds()) {
+      console.log(this.count);
+      this.count ++;
+      view.searchCoords = [map.center.k, map.center.A];
+      google.maps.event.addListener(map, 'idle', function() {
+        searchParamCoords.latW = map.getBounds().Ba.k;
+        searchParamCoords.longS = map.getBounds().ra.j;
+        searchParamCoords.latE = map.getBounds().Ba.j;
+        searchParamCoords.longN = map.getBounds().ra.k;
+        view.filterByLocation(searchParamCoords);
+      });
+    }
 
-    // this.filterByLocation(searchParamCoords);
     // this.makeMarkers();
     _.each(this.markerLocations, function(value, key) {
       var pos = new google.maps.LatLng(value[0], value[1]);
@@ -181,6 +236,22 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       });
       view.bindMarkerEvents(marker, key, map);
     });
+  },
+
+  addListeners: function(map) {
+    var view = this;
+    if (this.count === 0 && map.getBounds()) {
+      console.log(this.count);
+      this.count ++;
+      view.searchCoords = [map.center.k, map.center.A];
+      google.maps.event.addListener(map, 'dragend', function() {
+        searchParamCoords.latW = map.getBounds().Ba.k;
+        searchParamCoords.longS = map.getBounds().ra.j;
+        searchParamCoords.latE = map.getBounds().Ba.j;
+        searchParamCoords.longN = map.getBounds().ra.k;
+        view.filterByLocation(searchParamCoords);
+      });
+    }
   },
 
   makeMarkers: function() {

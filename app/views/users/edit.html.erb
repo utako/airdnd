@@ -48,11 +48,9 @@
         <input type="text" name="user[phone_number]" class="form-control" value="<%= @user.phone_number %>">
       </label>
     </div>
-    <br>
-    <br>
     <%= form_for @user do |f| %>
       <div class='form-group'>
-        <%= f.label :filepicker_url, "Upload Your Avatar:" %>
+        <%= f.label :filepicker_url, "Upload Your Avatar: " %>
         <%= f.filepicker_field :filepicker_url, button_class: "btn btn-default btn-md" %>
       </div>
       <br>
