@@ -11,8 +11,11 @@ window.AirDnd.Views.campaignPreview = Backbone.CompositeView.extend({
 
   render: function() {
     var photoURL = "";
-    if (this.model.photos().length > 0) {
+    console.log('wtf ')
+    console.log(this.model);
+    if (this.model.photos() && this.model.photos().length > 0) {
       photoURL = this.model.photos().models[0].get('photo_url');
+    } else {
     }
     var renderedContent = this.template({
       campaign: this.model,

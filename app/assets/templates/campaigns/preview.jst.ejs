@@ -1,6 +1,6 @@
 <a href="#/campaigns/<%= campaign.id %>">
   <div id='preview-photo'>
-    <% if (photo_url !== "" ) { %>
+    <% if (photo_url && photo_url !== "" ) { %>
       <img src="<%= photo_url %>">
     <% } else { %>
       <img src="assets/preview/imageplaceholder.jpg">

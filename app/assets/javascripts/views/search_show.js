@@ -4,11 +4,12 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   className: "search-show",
 
   initialize: function(options) {
+    console.log('initial');
     var view = this;
     this.resizeContent();
     this.markerLocations = {};
-    this.listenTo(this.collection, "add sync", this.render);
-    this.listenTo(this.collection, "add sync", this.addCampaignPreview);
+    this.listenTo(this.collection, "all", this.render);
+    this.listenTo(this.collection, "add", this.addCampaignPreview);
     this.unparsedParams = options.searchParams;
     this.searchParams = this.parseParams(options.searchParams);
     if (_.isEmpty(this.searchParams)) {
@@ -20,9 +21,11 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     this.initialSearchLocation = options.searchParams.location;
     // delete options.searchParams['location'];
     this.searchParamCoords = {};
+    // this.initializeMap([37.757444, -122.447016]);
   },
 
   render: function() {
+    console.log('render');
     var view = this;
     var gameStyles = AirDnd.Models.Campaign.gameStyles;
     var gameSystems = AirDnd.Models.Campaign.gameSystems;
@@ -64,6 +67,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   filterByLocation: function (coords) {
+    console.log('filter by location');
     var view = this;
     var campaigns = this.collection.filter(function(campaign) {
       var campLat = campaign.get('latitude');
@@ -95,11 +99,15 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     } else {
       campaigns = this.filterResults(this.searchParams, this.collection);
     }
+    console.log('filter by change');
     campaigns.each(this.addCampaignPreview.bind(this));
     this.render();
   },
 
   addCampaignPreview: function(campaign) {
+    console.log('add campaign preview');
+    console.log(campaign);
+
     var campaignID = campaign.id;
     this.markerLocations[campaignID] = [parseFloat(campaign.get('latitude')), parseFloat(campaign.get('longitude'))];
     var campaignPreview = new AirDnd.Views.campaignPreview({
@@ -110,6 +118,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   filterResults: function(params, campaigns) {
+    console.log('filter results');
     if (_.keys(params).length === 0) {
       return campaigns;
     }
@@ -122,6 +131,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   parseParams: function(params) {
+    console.log('parse params');
     var parsedParams = [];
     $.each(params, function(index, value) {
       var tempObj = {};
@@ -139,6 +149,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
 
   initializeMap: function(searchCoords) {
+    console.log('map');
     var view = this;
     var map;
     var mapOptions = {
@@ -173,6 +184,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   makeMarkers: function() {
+    console.log('make markers');
     var view = this;
     _.each(this.markerLocations, function(value, key) {
       var pos = new google.maps.LatLng(value[0], value[1]);
@@ -187,6 +199,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   bindMarkerEvents: function(marker, key, map) {
+    console.log('bind marker events');
     var view = this;
     var elementSelector = '.campaign-preview-' + key;
     google.maps.event.addListener(marker, 'mouseover', function() {

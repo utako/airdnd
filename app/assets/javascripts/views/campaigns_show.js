@@ -73,6 +73,8 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
 
     Holder.run();
     var view = this;
+    this.removeAllSubviews();
+    this.model.users().each(this.addUser.bind(this));
     approvedRequests.forEach(function(request) {
       view.addApprovedRequest(request)
     });

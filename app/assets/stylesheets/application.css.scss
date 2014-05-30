@@ -152,6 +152,7 @@ a:hover {
   width: 50%;
   min-width: 20pc;
   float: left;
+  height: 425px;
   margin-bottom: 0.5pc;
 }
 
@@ -203,6 +204,7 @@ a:hover {
   margin-left: 1pc;
   z-index: 100;
   color: white;
+  text-shadow: 1px 1px 2px black;
 }
 
 #preview-description {
@@ -238,12 +240,12 @@ a:hover {
   padding: 1px;
   height: 29px;
   width: 100%;
-  border: thin solid #E9F0ED;
+  // border: thin solid #E9F0ED;
   border-radius: 5px;
   margin-bottom: 1pc;
-  background-color: #F0F2ED;
+  // background-color: #F0F2ED;
   .form-control {
-    border: thin solid #F0F2ED;
+    // border: thin solid #F0F2ED;
     float: left;
     height: 1.5pc;
     z-index: 0;
@@ -651,4 +653,36 @@ $colHighlight   : #fefdfd;
 			> a, > a:hover, > a:focus, {
 				color: $colHighlight;
 				background-color: $bgHighlight; }}}
+}
+
+/* neighborhood */
+
+.neighborhood-guide {
+  .section-intro {
+    color: #595C50;
+    margin-top: 2pc;
+    margin-left: 8pc;
+  }
+}
+
+/* FOOTER */
+
+.push {
+    height: 80px; /* same as the footer */
+}
+.footer-wrapper {
+  padding: 1pc;
+  color: white;
+  background-color: #131712;
+  position: relative;
+  height: 100%;
+  .row {
+    margin-bottom: 2pc;
+  }
+  ul {
+    margin-top: 1pc;
+    font-size: 10pt;
+    list-style: none;
+    margin-left: -38px;
+  }
 }

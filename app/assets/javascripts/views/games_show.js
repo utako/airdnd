@@ -6,6 +6,7 @@ window.AirDnd.Views.gamesShow = Backbone.CompositeView.extend({
   initialize: function(options) {
     this.listenTo(this.collection, "sync", this.addFilteredCampaignPreviews);
     this.searchParams = this.parseParams(options.searchParams);
+    this.addFilteredCampaignPreviews();
   },
 
   render: function() {
