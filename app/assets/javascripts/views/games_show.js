@@ -29,6 +29,7 @@ window.AirDnd.Views.gamesShow = Backbone.CompositeView.extend({
   },
 
   addFilteredCampaignPreviews: function() {
+    this.removeAllSubviews();
     var campaigns = this.filterResults(this.searchParams, this.collection);
     campaigns.each(this.addCampaignPreview.bind(this));
     this.render();
