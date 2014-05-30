@@ -8,7 +8,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     this.resizeContent();
     this.markerLocations = {};
     this.listenTo(this.collection, "add sync", this.render);
-    this.listenTo(this.collection, "add", this.addCampaignPreview);
+    this.listenTo(this.collection, "add sync", this.addCampaignPreview);
     this.unparsedParams = options.searchParams;
     this.searchParams = this.parseParams(options.searchParams);
     if (_.isEmpty(this.searchParams)) {
@@ -18,7 +18,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     }
     campaigns.each(this.addCampaignPreview.bind(this));
     this.initialSearchLocation = options.searchParams.location;
-    delete options.searchParams['location'];
+    // delete options.searchParams['location'];
     this.searchParamCoords = {};
   },
 
