@@ -542,7 +542,8 @@ a:hover {
 /* NEW CAMPAIGN FORM */
 
 .campaigns-new {
-  background-image: url('thisguy.jpg');
+  margin-top: -20px;
+  // background-image: url('thisguy.jpg');
   background-size: cover;
 }
 
@@ -563,9 +564,9 @@ a:hover {
 }
 
 .host-header {
-  margin-top: -20px;
+  margin-top: 0px;
   width: 100%;
-  height: 725px;
+  height: 925px;
   float: left;
   color: white;
   text-align: left;
@@ -666,6 +667,31 @@ $colHighlight   : #fefdfd;
 }
 
 /* FOOTER */
+
+
+.dm-footer {
+  margin-top: 825px;
+  height: 100%;
+  .push {
+      height: 80px; /* same as the footer */
+  }
+  .footer-wrapper {
+    padding: 1pc;
+    color: white;
+    background-color: #131712;
+    position: relative;
+    height: 100%;
+    .row {
+      margin-bottom: 2pc;
+    }
+    ul {
+      margin-top: 1pc;
+      font-size: 10pt;
+      list-style: none;
+      margin-left: -38px;
+    }
+  }
+}
 
 .push {
     height: 80px; /* same as the footer */
