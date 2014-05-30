@@ -159,7 +159,17 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     });
 
     this.filterByLocation(searchParamCoords);
-    this.makeMarkers();
+    // this.makeMarkers();
+    _.each(this.markerLocations, function(value, key) {
+      var pos = new google.maps.LatLng(value[0], value[1]);
+      var title = "campaign-" + key;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: pos,
+        title: title
+      });
+      view.bindMarkerEvents(marker, key, map);
+    });
   },
 
   makeMarkers: function() {

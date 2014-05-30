@@ -32,6 +32,7 @@
         <option class="form-control" value="other">Other</option>
       </select>
     </label>
+    <br>
     <label>Relationship Status
       <select class="form-group" name="user[relationship_status]">
         <option class="form-control" value="Single">Single</option>
@@ -48,12 +49,17 @@
       </label>
     </div>
     <br>
+    <br>
     <%= form_for @user do |f| %>
       <div class='form-group'>
         <%= f.label :filepicker_url, "Upload Your Avatar:" %>
         <%= f.filepicker_field :filepicker_url, button_class: "btn btn-default btn-md" %>
       </div>
+      <br>
     <input type="submit" value="Update" class="btn btn-success btn-lg">
     <% end %>
   </form>
-</section>
+</div>
+<div class='user-pic'>
+  <img src="<%= @user.filepicker_url %>">
+</div>
