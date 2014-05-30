@@ -7,7 +7,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     var view = this;
     this.resizeContent();
     this.markerLocations = {};
-    this.listenTo(this.collection, "add", this.render);
+    this.listenTo(this.collection, "add sync", this.render);
     this.listenTo(this.collection, "add", this.addCampaignPreview);
     this.unparsedParams = options.searchParams;
     this.searchParams = this.parseParams(options.searchParams);
@@ -158,7 +158,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       searchParamCoords.longN = map.getBounds().ra.k;
     });
 
-    this.filterByLocation(searchParamCoords);
+    // this.filterByLocation(searchParamCoords);
     // this.makeMarkers();
     _.each(this.markerLocations, function(value, key) {
       var pos = new google.maps.LatLng(value[0], value[1]);
