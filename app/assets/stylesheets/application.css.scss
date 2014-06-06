@@ -309,6 +309,12 @@ a:hover {
   margin-left: 10%;
   color: white;
   width: 30%;
+  textarea.form-control{
+    min-height: 150px;
+  }
+  select {
+    color: black;
+  }
 }
 
 .profile-form .form-control {
