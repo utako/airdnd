@@ -18,7 +18,7 @@ window.AirDnd.Routers.AppRouter = Backbone.Router.extend({
     delete AirDnd.Routers.AppRouter.searchParams;
     var showView = new AirDnd.Views.searchShow({
       collection: AirDnd.Collections.campaigns,
-      searchParams: searchParams || {}
+      searchParams: searchParams || {},
     });
     this._swapView(showView);
     AirDnd.Collections.campaigns.fetch();

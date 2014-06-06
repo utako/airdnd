@@ -51,6 +51,16 @@ Backbone.CompositeView = Backbone.View.extend({
       });
     });
   },
+  
+  removeSubviewsForSelector: function (renderSelector) {
+    var view = this;
+    $(renderSelector).empty();
+    // _(this.subviews()[renderSelector]).each(function (selectorSubview) {
+    //   var $selectorEl = view.$(renderSelector);
+    //   $selectorEl.append(selectorSubview.render().$el);
+    //   selectorSubview.delegateEvents();
+    // });
+  },
 
   subviews: function() {
     if (!this._subviews) {

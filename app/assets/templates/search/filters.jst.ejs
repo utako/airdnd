@@ -1,0 +1,40 @@
+<select id='style' name="game_style" class="form-control">
+  <option value="" selected>Style</option>
+  <% _.each(gameStyles, function(gameStyle) { %>
+    <% if (searchParams.game_style === gameStyle) { %>
+      <option selected='selected' value="<%= gameStyle %>"><%= gameStyle %></option>
+    <% } else { %>
+      <option value="<%= gameStyle %>"><%= gameStyle %></option>
+    <% }%>
+  <% })%>
+</select>
+<select id='system' name="game_system" class="form-control">
+  <option value="" selected>System</option>
+  <% _.each(gameSystems, function(gameSystem) { %>
+    <% if (searchParams.game_system === gameSystem) { %>
+      <option selected='selected' value="<%= gameSystem %>"><%= gameSystem %></option>
+    <% } else { %>
+      <option value="<%= gameSystem %>"><%= gameSystem %></option>
+    <% }%>
+  <% })%>
+</select>
+<select id='setting' name="setting" class="form-control">
+  <option value="" selected>Campaign Setting</option>
+  <% _.each(settings, function(setting) { %>
+    <% if (searchParams.setting === setting) { %>
+      <option selected='selected' value="<%= setting %>"><%= setting %></option>
+    <% } else { %>
+      <option value="<%= setting %>"><%= setting %></option>
+    <% }%>
+  <% })%>
+</select>
+<select id='players' name="num_members" class="form-control">
+  <option value="" selected>Players</option>
+  <% _.each(numPlayers, function(num) { %>
+    <% if (parseInt(searchParams.num_members) === parseInt(num)) { %>
+      <option selected='selected' value="<%= parseInt(num) %>"><%= num %></option>
+    <% } else { %>
+      <option value="<%= parseInt(num) %>"><%= num %></option>
+    <% }%>
+  <% })%>
+</select>
