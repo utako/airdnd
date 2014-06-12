@@ -24,7 +24,7 @@
                 <img id="thumbnail" src="<%= photo_url %>">
               </a>
             <% }) %>
-            <% if (campaign.get('user_id') === currentUserId) { %>
+            <% if (typeof currentUserId !== 'undefined' && campaign.get('user_id') === currentUserId) { %>
               <button class='thumbnail glyph-button btn btn-default btn-xs filepicker-btn' type="filepicker" data-fp-apikey="<%= filepickerAPIKey %>" data-fp-mimetypes="image/*" data-fp-container="modal" data-fp-option-multiple="true" data-fp-maxsize="5000" onchange="out='';for(var i=0;i<event.fpfiles.length;i++){out+=event.fpfiles[i].url;out+=' '};alert(out)"><span class="glyphicon glyphicon-plus"></span></button>
             <% } %>
             <% %>
