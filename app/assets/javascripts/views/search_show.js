@@ -22,7 +22,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({address: options.searchParams.location}, function(results, status) {
          if (status == google.maps.GeocoderStatus.OK) {
-           debugger
            view.initialSearchCoords = {};
            view.initialSearchCoords.latW = results[0].geometry.bounds.Ba.k;
            view.initialSearchCoords.longS = results[0].geometry.bounds.qa.j;

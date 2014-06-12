@@ -33,9 +33,9 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
 
     var input = this.$el.find('#pac-input');
     input = input[0];
-    var options = { types: ['geocode'] };
+    var options = { types: ['(cities)'] };
     var autocomplete = new google.maps.places.Autocomplete(input, options);
-    var searchBox = new google.maps.places.SearchBox(input);
+    // var searchBox = new google.maps.places.SearchBox(input);
 
 
     var $startDate = this.$el.find('#start_date');
