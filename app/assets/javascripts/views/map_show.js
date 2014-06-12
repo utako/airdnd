@@ -22,6 +22,14 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
       searchParamCoords.longN = map.getBounds().qa.k;
       view.showView.filterByLocation(searchParamCoords);
     });
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      // view.initialCenter = [map.center.k, map.center.A];
+      searchParamCoords.latW = map.getBounds().Ba.k;
+      searchParamCoords.longS = map.getBounds().qa.j;
+      searchParamCoords.latE = map.getBounds().Ba.j;
+      searchParamCoords.longN = map.getBounds().qa.k;
+      view.showView.filterByLocation(searchParamCoords);
+    });
     this.markers = [];
   },
 
