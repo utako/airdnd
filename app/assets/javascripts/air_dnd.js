@@ -54,6 +54,7 @@ Backbone.CompositeView = Backbone.View.extend({
   
   renderSubviewsForSelector: function(renderSelector) {
     var view = this;
+    debugger
     $selectorEl = view.$(renderSelector);
     $selectorEl.append(view.mapShow.render().$el);
     view.mapShow.delegateEvents();

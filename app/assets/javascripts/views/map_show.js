@@ -14,11 +14,8 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     this.model.map = new google.maps.Map(canvas, this.model.mapOptions);
     var map = this.model.map;
     this.map = map;
-    window.mapView = this;
-    window.mapModel = this.model;
     google.maps.event.addListener(map, 'dragend', function() {
-      view.searchCoords = [map.center.k, map.center.A];
-      console.log(this.searchCoords);
+      // view.initialCenter = [map.center.k, map.center.A];
       searchParamCoords.latW = map.getBounds().Ba.k;
       searchParamCoords.longS = map.getBounds().qa.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
@@ -29,11 +26,8 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
 
   render: function() {
-    // var renderedContent = this.template({});
-    // this.$el.html(renderedContent);
+
     this.removeMarkers();
-    console.log("MLS");
-    console.log(this.showView.markerLocations);
     if (!jQuery.isEmptyObject(this.showView.markerLocations)) {
       this.makeMarkers();
     }
@@ -49,8 +43,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     console.log(this.showView.markerLocations);
     var view = this;
     
-    window.stupidMarkerArray = window.stupidMarkerArray || [];
-    
     _.each(this.showView.markerLocations, function(value, key) {
       var pos = new google.maps.LatLng(value[0], value[1]);
       var title = "campaign-" + key;
@@ -60,7 +52,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
         title: title
       });
       view.markers.push(marker);
-      window.stupidMarkerArray.push(marker);
       view.bindMarkerEvents(marker, key, view.map)
     });
   },

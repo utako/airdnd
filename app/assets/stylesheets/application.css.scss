@@ -73,7 +73,7 @@ a:hover {
 
 .carousel-caption {
   text-align: left;
-  width: 783px;
+  width: 807px;
   top: 30%;
   left: 20%;
   right: 20%;
@@ -82,8 +82,13 @@ a:hover {
   .form-group {
     margin: auto;
     height: 33px;
-  }
+  }  
 }
+
+.pac-input {
+  width: 250px;
+}
+
 .profile-form {
   float: left;
 }
