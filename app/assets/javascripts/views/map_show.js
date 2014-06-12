@@ -1,11 +1,12 @@
 window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
-  template: JST["map_show"],
+  // template: JST["map_show"],
   
   id: "map-canvas",
 
   initialize: function(options) {
     this.searchCoords = options.searchCoords;
     this.showView = options.showView;
+    this.showView.searchCoords = this.searchCoords;
     var view = this;
     var searchParamCoords = {};
 
@@ -13,6 +14,8 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     this.model.map = new google.maps.Map(canvas, this.model.mapOptions);
     var map = this.model.map;
     this.map = map;
+    window.mapView = this;
+    window.mapModel = this.model;
     google.maps.event.addListener(map, 'dragend', function() {
       view.searchCoords = [map.center.k, map.center.A];
       console.log(this.searchCoords);
@@ -26,19 +29,28 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
 
   render: function() {
-    var renderedContent = this.template({
-    });
-    this.$el.html(renderedContent);
-    // debugger
+    // var renderedContent = this.template({});
+    // this.$el.html(renderedContent);
+    this.removeMarkers();
+    console.log("MLS");
+    console.log(this.showView.markerLocations);
     if (!jQuery.isEmptyObject(this.showView.markerLocations)) {
       this.makeMarkers();
     }
+    var view = this;
+    _.defer(function () {
+      google.maps.event.trigger(view.map, 'resize');
+    });
     return this;
   },
 
   makeMarkers: function() {
     console.log('make markers');
+    console.log(this.showView.markerLocations);
     var view = this;
+    
+    window.stupidMarkerArray = window.stupidMarkerArray || [];
+    
     _.each(this.showView.markerLocations, function(value, key) {
       var pos = new google.maps.LatLng(value[0], value[1]);
       var title = "campaign-" + key;
@@ -48,6 +60,7 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
         title: title
       });
       view.markers.push(marker);
+      window.stupidMarkerArray.push(marker);
       view.bindMarkerEvents(marker, key, view.map)
     });
   },
@@ -59,10 +72,11 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
   
   removeMarkers: function() {
-    var newMarkers = this.markers.slice(0);
+    var newMarkers = [];//this.markers.slice(0);
     _.each(this.markers, function(marker) {
+      window.m1 = marker;
       marker.setMap(null);
-      newMarkers.splice(newMarkers.indexOf(marker), 1)
+      //newMarkers.splice(newMarkers.indexOf(marker), 1)
     });
     this.markers = newMarkers;
   },

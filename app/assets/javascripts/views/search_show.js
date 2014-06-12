@@ -4,7 +4,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   className: "search-show",
 
   initialize: function(options) {
-    this.count = 0;
     console.log('initial');
     var view = this;
     this.resizeContent();
@@ -21,10 +20,14 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     campaigns.each(this.addCampaignPreview.bind(this));
     this.initialSearchCoords = options.searchParams.location || [37.7833, -122.4167];
     this.searchParamCoords = {};
-    this.listenTo(this.collection, "sync add", (function() {
+    this.listenTo(this.collection, "sync", (function() {
       this.addMapShow(this.initialSearchCoords)
     }).bind(this));
     this.addFilters();
+    
+    // TA: Be careful; initialSearchCoords may be empty?
+    console.log("SEARCH COORDS:");
+    console.log(this.initialSearchCoords);
     this.filterByLocation(this.initialSearchCoords);
   },
 
@@ -46,6 +49,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
   filterByLocation: function (coords) {
     console.log('filter by location');
+    this.markerLocations = {};
     var view = this;
     this.removeSubviewsForSelector('.campaign-previews');
     var campaigns = this.collection.filter(function(campaign) {
@@ -58,6 +62,9 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     filteredCampaignCollection.each(this.addCampaignPreview.bind(this));
     var newCenter = [(coords.latW + coords.latE)/2, (coords.longS + coords.longN)/2];
     this.searchCoords = newCenter;
+    if (typeof this.mapShow !== 'undefined') {
+      this.mapShow.updateMarkers();
+    }
   },
   
   addFilters: function() {
@@ -79,7 +86,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   
   addCampaignPreview: function(campaign) {
     console.log('add campaign preview');
-
     var campaignID = campaign.id;
     this.markerLocations[campaignID] = [parseFloat(campaign.get('latitude')), parseFloat(campaign.get('longitude'))];
     var campaignPreview = new AirDnd.Views.campaignPreview({
@@ -90,6 +96,12 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
   
   addMapShow: function(searchCoords) {
+    
+    // if (window.xyz) {
+    //   return;
+    // } else {
+    //   window.xyz = 1;
+    // }
     console.log('map show');
     var map = new AirDnd.Models.Map({searchCoords: searchCoords});
     this.map = map;
@@ -110,13 +122,23 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     this.removeSubviewsForSelector('.campaign-previews');
     this.unparsedParams[newSearchSubject] = newSearchVal;
     this.searchParams = this.parseParams(this.unparsedParams);
+    var searchParamCoords = {};
+    searchParamCoords.latW = this.mapShow.model.map.getBounds().Ba.k;
+    searchParamCoords.longS = this.mapShow.model.map.getBounds().qa.j;
+    searchParamCoords.latE = this.mapShow.model.map.getBounds().Ba.j;
+    searchParamCoords.longN = this.mapShow.model.map.getBounds().qa.k;
+    var campaigns = this.filterByLocation(searchParamCoords);
     if (_.isEmpty(this.searchParams)) {
-      campaigns = this.collection;
+      campaigns = campaigns;
     } else {
-      campaigns = this.filterResults(this.searchParams, this.collection);
+      // campaigns = this.filterResults(this.searchParams, this.collection);
+      campaigns = this.filterResults(this.searchParams, campaigns);
     }
-    campaigns.each(this.addCampaignPreview.bind(this));
-    this.mapShow.makeMarkers();
+    typeof campaigns !== 'undefined' && campaigns.each(this.addCampaignPreview.bind(this));
+    // this.renderSubviewsForSelector('#map-canvas');
+    if (typeof this.mapShow !== 'undefined') {
+      this.mapShow.updateMarkers();
+    }
   },
 
   filterResults: function(params, campaigns) {
@@ -124,7 +146,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     if (_.keys(params).length === 0) {
       return campaigns;
     }
-    else if (_.keys(params).length > 0) {
+    else if (typeof campaigns !== 'undefined' && _.keys(params).length > 0) {
       var newCollection = new AirDnd.Collections.Campaigns();
       campaigns = campaigns.where(params[0]);
       newCollection.add(campaigns);

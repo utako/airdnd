@@ -52,9 +52,16 @@ Backbone.CompositeView = Backbone.View.extend({
     });
   },
   
-  removeSubviewsForSelector: function (renderSelector) {
+  renderSubviewsForSelector: function(renderSelector) {
     var view = this;
-    $(renderSelector).empty();
+    $selectorEl = view.$(renderSelector);
+    $selectorEl.append(view.mapShow.render().$el);
+    view.mapShow.delegateEvents();
+  },
+  
+  removeSubviewsForSelector: function (removeSelector) {
+    var view = this;
+    $(removeSelector).empty();
     // _(this.subviews()[renderSelector]).each(function (selectorSubview) {
     //   var $selectorEl = view.$(renderSelector);
     //   $selectorEl.append(selectorSubview.render().$el);

@@ -25,7 +25,6 @@ window.AirDnd.Routers.AppRouter = Backbone.Router.extend({
   },
 
   gamesShow: function() {
-    debugger
     var gamesView = new AirDnd.Views.gamesShow({
       collection: AirDnd.Collections.campaigns,
       searchParams: { user_id: currentUserId }

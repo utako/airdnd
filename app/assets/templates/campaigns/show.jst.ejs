@@ -61,10 +61,13 @@
     </div>
 </div>
 <div class="campaign-side">
+  <div class='back-search'><a href='#/search'><< Back to Browse</a></div>
   <div class=campaign-join>
     <h1>Players: <%= campaign.escape('num_members') %></h1>
     <h3><%= startDate %> ~ <%= endDate %></h3>
-    <% if (campaign.get('user_id') === currentUserId && users.models[0] && users.models[0].escape('email')) { %>
+    <% if (typeof currentUserId === 'undefined') { %> 
+      You must be logged in to use this feature.
+    <% } else if (campaign.get('user_id') === currentUserId && users.models[0] && users.models[0].escape('email')) { %>
       <div id='requests-toggle'>
         <div class='join-requests show'>
           <button id='requests-btn' class='btn btn-lg btn-success' style="margin: auto">Your Requests</button>

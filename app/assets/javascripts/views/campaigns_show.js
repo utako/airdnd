@@ -13,7 +13,7 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
   },
 
   events: function() {
-    if (this.model.get('user_id') === currentUserId) {
+    if (typeof currentUserId !== 'undefined' && this.model.get('user_id') === currentUserId) {
       return {
         "click .filepicker-btn" : "filepickerModal",
         "click .thumbnail": "toggleMainPhoto",
@@ -48,7 +48,10 @@ window.AirDnd.Views.campaignsShow = Backbone.CompositeView.extend({
     var settings = AirDnd.Models.Campaign.settings;
     var startDate = moment(this.model.get('start_date')).format('LL');
     var endDate = moment(this.model.get('end_date')).format('LL');
-    var joinRequest = this.model.requests().findWhere({user_id: currentUserId});
+    var joinRequest = "";
+    if (typeof currentUserId !== 'undefined') {
+      joinRequest = this.model.requests().findWhere({user_id: currentUserId});
+    }
     var users = this.model.users();
     var approvedRequests = this.model.approvedRequests();
     var renderedContent = this.template({
