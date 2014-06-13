@@ -139,6 +139,17 @@ a:hover {
 
 // SEARCH SHOW PAGE
 
+.map-info {
+  text-align: center;
+  background-color: #EDEDED;
+  border-radius: 5px;
+  border: thin solid #E9F0ED;
+  color: #628551;
+  font-weight: 500;
+  z-index: 1000;
+  padding: 8px;
+}
+
 #map-canvas {
   // border: thin solid red;
   margin-top: 0px;

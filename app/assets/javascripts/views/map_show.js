@@ -9,7 +9,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     this.showView.searchCoords = this.searchCoords;
     var view = this;
     var searchParamCoords = {};
-
     var canvas = this.$el[0];
     this.model.map = new google.maps.Map(canvas, this.model.mapOptions);
     var map = this.model.map;
@@ -30,6 +29,7 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
       searchParamCoords.longN = map.getBounds().qa.k;
       view.showView.filterByLocation(searchParamCoords);
     });
+    google.maps.event.trigger(view.map, 'resize');
     this.markers = [];
   },
 
