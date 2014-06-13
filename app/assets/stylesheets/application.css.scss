@@ -596,9 +596,22 @@ a:hover {
 .datepicker.dropdown-menu {
   z-index: 5000;
 }
+#start_date.span2.datepicker.form-control {
+  width: 200px;
+}
+
+#end_date.span2.datepicker.form-control {
+  width: 200px;
+}
 
 .pac-container {
   z-index: 5000;
+}
+
+.newCampaignModal {
+  modal-body {
+    text-align: center;
+  }
 }
 
 .host-header {

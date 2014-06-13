@@ -36,30 +36,30 @@ window.AirDnd.Views.campaignsNew = Backbone.View.extend({
 
     var firstDate;
     var view = this;
+
     var $startDate = this.$el.find('#start_date');
     var startDate = $startDate.datepicker({
       onRender: function(date) {
-      return date.valueOf() < now.valueOf() ? 'disabled' : '';
+        return date.valueOf() < now.valueOf() ? 'disabled' : '';
       }
-    }).on('changeDate', function(event) {
+    }).on('changeDate', function(ev) {
+      if (ev.date.valueOf() > checkout.date.valueOf()) {
+        var newDate = new Date(ev.date)
+        newDate.setDate(newDate.getDate() + 1);
+        checkout.setValue(newDate);
+      }
       startDate.hide();
-      firstDate = startDate.date;
-      var $endDate = view.$el.find('#end_date');
-      $endDate.data('datepicker').onRender = function(date) {
-        return date.valueOf() < firstDate ? 'disabled' : '';
-      };
+      view.$el.find('#end_date')[0].focus();
+    }).data('datepicker');
+    
+    var checkout = this.$el.find('#end_date').datepicker({
+      onRender: function(date) {
+        return date.valueOf() <= startDate.date.valueOf() ? 'disabled' : '';
+      }
+    }).on('changeDate', function(ev) {
+      checkout.hide();
     }).data('datepicker');
 
-
-    var $endDate = this.$el.find('#end_date');
-    var endDate = $endDate.datepicker({
-      onRender: function(date) {
-      return date.valueOf() < now.valueOf() ? 'disabled' : '';
-      }
-    }).on('changeDate', function(event) {
-      endDate.data('datepicker').hide();
-        // return false;
-    });
 
 
     return this;
