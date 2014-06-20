@@ -16,17 +16,17 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     google.maps.event.addListener(map, 'dragend', function() {
       // view.initialCenter = [map.center.k, map.center.A];
       searchParamCoords.latW = map.getBounds().Ba.k;
-      searchParamCoords.longS = map.getBounds().qa.j;
+      searchParamCoords.longS = map.getBounds().ra.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
-      searchParamCoords.longN = map.getBounds().qa.k;
+      searchParamCoords.longN = map.getBounds().ra.k;
       view.showView.filterByLocation(searchParamCoords);
     });
     google.maps.event.addListener(map, 'zoom_changed', function() {
       // view.initialCenter = [map.center.k, map.center.A];
       searchParamCoords.latW = map.getBounds().Ba.k;
-      searchParamCoords.longS = map.getBounds().qa.j;
+      searchParamCoords.longS = map.getBounds().ra.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
-      searchParamCoords.longN = map.getBounds().qa.k;
+      searchParamCoords.longN = map.getBounds().ra.k;
       view.showView.filterByLocation(searchParamCoords);
     });
     google.maps.event.trigger(view.map, 'resize');
@@ -71,11 +71,10 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
   
   removeMarkers: function() {
-    var newMarkers = [];//this.markers.slice(0);
+    var newMarkers = [];
     _.each(this.markers, function(marker) {
       window.m1 = marker;
       marker.setMap(null);
-      //newMarkers.splice(newMarkers.indexOf(marker), 1)
     });
     this.markers = newMarkers;
   },

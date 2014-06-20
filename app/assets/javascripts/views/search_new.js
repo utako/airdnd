@@ -37,7 +37,7 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
     var autocomplete = new google.maps.places.Autocomplete(input, options);
     // var searchBox = new google.maps.places.SearchBox(input);
 
-    $('#pac-input').on('click', function() {debugger; $('#pac-input').popover('show')});
+    $('#pac-input').on('click', function() {$('#pac-input').popover('show')});
     var $startDate = this.$el.find('#start_date');
     var startDate = $startDate.datepicker({
       onRender: function(date) {

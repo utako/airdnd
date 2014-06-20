@@ -7,8 +7,6 @@ window.AirDnd = {
     new window.AirDnd.Routers.AppRouter();
     Backbone.history.start();
   },
-
-
 };
 
 Backbone.CompositeView = Backbone.View.extend({

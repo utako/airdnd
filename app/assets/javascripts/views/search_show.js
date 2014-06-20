@@ -60,7 +60,7 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
 
   filterByLocation: function (coords) {
     console.log('filter by location');
-    // this.markerLocations = {};
+    
     var view = this;
     this.removeSubviewsForSelector('.campaign-previews');
     var campaigns = this.collection.filter(function(campaign) {
