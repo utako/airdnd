@@ -14,7 +14,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     var map = this.model.map;
     this.map = map;
     google.maps.event.addListener(map, 'dragend', function() {
-      // view.initialCenter = [map.center.k, map.center.A];
       searchParamCoords.latW = map.getBounds().Ba.k;
       searchParamCoords.longS = map.getBounds().ra.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
@@ -22,7 +21,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
       view.showView.filterByLocation(searchParamCoords);
     });
     google.maps.event.addListener(map, 'zoom_changed', function() {
-      // view.initialCenter = [map.center.k, map.center.A];
       searchParamCoords.latW = map.getBounds().Ba.k;
       searchParamCoords.longS = map.getBounds().ra.j;
       searchParamCoords.latE = map.getBounds().Ba.j;
@@ -47,8 +45,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
 
   makeMarkers: function() {
-    console.log('make markers');
-    console.log(this.showView.markerLocations);
     var view = this;
     
     _.each(this.showView.markerLocations, function(value, key) {
@@ -80,7 +76,6 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
   },
 
   bindMarkerEvents: function(marker, key, map) {
-    console.log('bind marker events');
     var view = this;
     var elementSelector = '.campaign-preview-' + key;
     google.maps.event.addListener(marker, 'mouseover', function() {

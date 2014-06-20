@@ -23,10 +23,11 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       geocoder.geocode({address: options.searchParams.location}, function(results, status) {
          if (status == google.maps.GeocoderStatus.OK) {
            view.initialSearchCoords = {};
+           debugger
            view.initialSearchCoords.latW = results[0].geometry.bounds.Ba.k;
-           view.initialSearchCoords.longS = results[0].geometry.bounds.qa.j;
+           view.initialSearchCoords.longS = results[0].geometry.bounds.ra.j;
            view.initialSearchCoords.latE = results[0].geometry.bounds.Ba.j;
-           view.initialSearchCoords.longN = results[0].geometry.bounds.qa.k;
+           view.initialSearchCoords.longN = results[0].geometry.bounds.ra.k;
            view.initialCenter = [results[0].geometry.location.k, results[0].geometry.location.A];   
          }
       });
@@ -46,7 +47,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     console.log('render');
     var view = this;
     var renderedContent = this.template({});
-    // this.map;
     this.$el.html(renderedContent);
     this.renderSubviews();
     this.delegateEvents();
@@ -131,9 +131,9 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     this.searchParams = this.parseParams(this.unparsedParams);
     var searchParamCoords = {};
     searchParamCoords.latW = this.mapShow.model.map.getBounds().Ba.k;
-    searchParamCoords.longS = this.mapShow.model.map.getBounds().qa.j;
+    searchParamCoords.longS = this.mapShow.model.map.getBounds().ra.j;
     searchParamCoords.latE = this.mapShow.model.map.getBounds().Ba.j;
-    searchParamCoords.longN = this.mapShow.model.map.getBounds().qa.k;
+    searchParamCoords.longN = this.mapShow.model.map.getBounds().ra.k;
     var campaigns = this.filterByLocation(searchParamCoords);
     if (_.isEmpty(this.searchParams)) {
       campaigns = campaigns;
