@@ -35,7 +35,6 @@ window.AirDnd.Views.searchNew = Backbone.View.extend({
     input = input[0];
     var options = { types: ['(cities)'] };
     var autocomplete = new google.maps.places.Autocomplete(input, options);
-    // var searchBox = new google.maps.places.SearchBox(input);
 
     $('#pac-input').on('click', function() {$('#pac-input').popover('show')});
     var $startDate = this.$el.find('#start_date');

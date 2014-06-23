@@ -3,7 +3,6 @@ window.AirDnd.Views.campaignsNew = Backbone.View.extend({
   className: "campaigns-new",
 
   initialize: function () {
-    // google.maps.event.addDomListener(window, 'keydown', this.initializeMap);
   },
 
 

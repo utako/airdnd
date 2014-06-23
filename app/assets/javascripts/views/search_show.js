@@ -17,7 +17,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       campaigns = this.filterResults(this.searchParams, this.collection);
     }
     this.removeSubviewsForSelector('.campaign-previews');
-    // campaigns.each(this.addCampaignPreview.bind(this));
     if (typeof options.searchParams.location !== 'undefined') {
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({address: options.searchParams.location}, function(results, status) {
@@ -137,11 +136,9 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     if (_.isEmpty(this.searchParams)) {
       campaigns = campaigns;
     } else {
-      // campaigns = this.filterResults(this.searchParams, this.collection);
       campaigns = this.filterResults(this.searchParams, campaigns);
     }
     typeof campaigns !== 'undefined' && campaigns.each(this.addCampaignPreview.bind(this));
-    // this.renderSubviewsForSelector('#map-canvas');
     window.mapShow = this.mapShow;
     if (typeof this.mapShow !== 'undefined') {
       this.mapShow.updateMarkers();
