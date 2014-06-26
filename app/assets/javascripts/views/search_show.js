@@ -4,7 +4,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   className: "search-show",
 
   initialize: function(options) {
-    console.log('initial');
     var view = this;
     this.resizeContent();
     this.markerLocations = {};
@@ -22,11 +21,13 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
       geocoder.geocode({address: options.searchParams.location}, function(results, status) {
          if (status == google.maps.GeocoderStatus.OK) {
            view.initialSearchCoords = {};
-           view.initialSearchCoords.latW = results[0].geometry.bounds.Ba.k;
-           view.initialSearchCoords.longS = results[0].geometry.bounds.ra.j;
-           view.initialSearchCoords.latE = results[0].geometry.bounds.Ba.j;
-           view.initialSearchCoords.longN = results[0].geometry.bounds.ra.k;
-           view.initialCenter = [results[0].geometry.location.k, results[0].geometry.location.A];   
+           var southWest = results[0].geometry.viewport.getSouthWest();
+           var northEast = results[0].geometry.viewport.getNorthEast();
+           view.initialSearchCoords.latW = southWest.lat();
+           view.initialSearchCoords.longS = southWest.lng();
+           view.initialSearchCoords.latE = northEast.lat();
+           view.initialSearchCoords.longN = northEast.lng();
+           view.initialCenter = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];   
          }
       });
     } else {      
@@ -42,7 +43,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   render: function() {
-    console.log('render');
     var view = this;
     var renderedContent = this.template({});
     this.$el.html(renderedContent);
@@ -57,7 +57,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   filterByLocation: function (coords) {
-    console.log('filter by location');
     
     var view = this;
     this.removeSubviewsForSelector('.campaign-previews');
@@ -94,7 +93,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
   
   addCampaignPreview: function(campaign) {
-    console.log('add campaign preview');
     var campaignID = campaign.id;
     this.markerLocations[campaignID] = [parseFloat(campaign.get('latitude')), parseFloat(campaign.get('longitude'))];
     var campaignPreview = new AirDnd.Views.campaignPreview({
@@ -107,7 +105,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   addMapShow: function(searchCoords) {
     this.removeSubviewsForSelector('.campaign-previews');
     this.filterByLocation(this.initialSearchCoords);
-    console.log('map show');
     var map = new AirDnd.Models.Map({searchCoords: searchCoords});
     this.map = map;
     var mapShow = new AirDnd.Views.mapShow({
@@ -128,10 +125,12 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
     this.unparsedParams[newSearchSubject] = newSearchVal;
     this.searchParams = this.parseParams(this.unparsedParams);
     var searchParamCoords = {};
-    searchParamCoords.latW = this.mapShow.model.map.getBounds().Ba.k;
-    searchParamCoords.longS = this.mapShow.model.map.getBounds().ra.j;
-    searchParamCoords.latE = this.mapShow.model.map.getBounds().Ba.j;
-    searchParamCoords.longN = this.mapShow.model.map.getBounds().ra.k;
+    var southWest = this.mapShow.model.map.getBounds().getSouthWest();
+    var northEast = this.mapShow.model.map.getBounds().getNorthEast();
+    searchParamCoords.latW = southWest.lat();
+    searchParamCoords.longS = southWest.lng();
+    searchParamCoords.latE = northEast.lat();
+    searchParamCoords.longN = northEast.lng();
     var campaigns = this.filterByLocation(searchParamCoords);
     if (_.isEmpty(this.searchParams)) {
       campaigns = campaigns;
@@ -146,7 +145,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   filterResults: function(params, campaigns) {
-    console.log('filter results');
     params.forEach(function(param) {
       if (typeof param.location !== 'undefined') {
         params.splice(params.indexOf(param), 1)
@@ -175,7 +173,6 @@ window.AirDnd.Views.searchShow = Backbone.CompositeView.extend({
   },
 
   parseParams: function(params) {
-    console.log('parse params');
     var parsedParams = [];
     $.each(params, function(index, value) {
       var tempObj = {};

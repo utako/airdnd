@@ -14,17 +14,21 @@ window.AirDnd.Views.mapShow = Backbone.CompositeView.extend({
     var map = this.model.map;
     this.map = map;
     google.maps.event.addListener(map, 'dragend', function() {
-      searchParamCoords.latW = map.getBounds().Ba.k;
-      searchParamCoords.longS = map.getBounds().ra.j;
-      searchParamCoords.latE = map.getBounds().Ba.j;
-      searchParamCoords.longN = map.getBounds().ra.k;
+      var southWest = map.getBounds().getSouthWest();
+      var northEast = map.getBounds().getNorthEast();
+      searchParamCoords.latW = southWest.lat();
+      searchParamCoords.longS = southWest.lng();
+      searchParamCoords.latE = northEast.lat();
+      searchParamCoords.longN = northEast.lng();
       view.showView.filterByLocation(searchParamCoords);
     });
     google.maps.event.addListener(map, 'zoom_changed', function() {
-      searchParamCoords.latW = map.getBounds().Ba.k;
-      searchParamCoords.longS = map.getBounds().ra.j;
-      searchParamCoords.latE = map.getBounds().Ba.j;
-      searchParamCoords.longN = map.getBounds().ra.k;
+      var southWest = map.getBounds().getSouthWest();
+      var northEast = map.getBounds().getNorthEast();
+      searchParamCoords.latW = southWest.lat();
+      searchParamCoords.longS = southWest.lng();
+      searchParamCoords.latE = northEast.lat();
+      searchParamCoords.longN = northEast.lng();
       view.showView.filterByLocation(searchParamCoords);
     });
     google.maps.event.trigger(view.map, 'resize');
